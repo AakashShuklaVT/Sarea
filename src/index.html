@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAREA</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/svg" href="/textures/Images/SAREA.svg">
+</head>
+
+<body>
+    <div class="relative parent w-full h-full flex items-center justify-center">
+        <!-- Loading Screen -->
+        <div
+            class="loading-screen relative w-full h-full bg-[#060D20] flex items-center justify-center overflow-hidden z-200">
+            <img src="/textures/Images/background-img.png" alt="background"
+                class="absolute top-0 left-0 w-full h-full object-cover object-center opacity-50">
+            <!--  Loading Bar-->
+            <div
+                class="relative w-[314px] h-[314px] md:w-[469px] md:h-[469px] lg:w-[520px] lg:h-[520px] xl:w-[660px] xl:h-[660px]">
+                <!-- loading text area -->
+                <div
+                    class="lower-content-loading absolute top-[90%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] flex flex-col items-center justify-center gap-0">
+                    <div
+                        class="loading-percentage-text text-blue-500 font-[Koulen] font-normal uppercase text-[30px] md:text-[64.66px]">
+                        0%</div>
+                    <div
+                        class="loading-text text-white font-[Koulen] font-normal uppercase text-[30px] md:text-[64.66px]">
+                        Loading...</div>
+                </div>
+
+                <!-- Grey border -->
+                <div class="absolute inset-0 rounded-full border-[0.78px] border-white rotate-[-145deg]"
+                    style="mask:conic-gradient(black 0deg 292deg,transparent 292deg 360deg);-webkit-mask:conic-gradient(black 0deg 292deg,transparent 292deg 360deg);">
+                </div>
+
+                <!-- Track -->
+                <!-- Background arc -->
+                <div class="absolute inset-0 rounded-full rotate-[-145deg] arc-mask arc-thickness">
+                    <div class="absolute inset-0 rounded-full arc-bg"></div>
+                </div>
+
+                <!-- Progress arc -->
+                <div class="absolute inset-0 rounded-full rotate-[-145deg] arc-mask arc-thickness">
+                    <div class="absolute inset-0 rounded-full progress-arc"></div>
+                </div>
+
+                <!-- Logo -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                    <img src="/textures/Images/logo.png" alt="logo"
+                        class="logo-laoding w-[207px] h-[69px] md:w-[310px] md:h-[104px] lg:w-[370px] lg:h-[125px] xl:w-[436px] xl:h-[146px]">
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div class="start-screen w-full h-full bg-[#060D20] z-200 flex">
+            <img src="/textures/Images/background-img.png" alt="logo"
+                class="absolute top-0 left-0 w-full h-full object-cover object-center opacity-50">
+            <div
+                class="logo-text font-[Komikazoom] absolute top-[50%] md:top-[43%] left-1/2 -translate-x-1/2 -translate-y-1/2 font-normal text-[115px] md:text-[241px] text-center text-[#FFFFFF] z-200">
+                SAREA
+            </div>
+
+            <button
+                class="start-btn absolute bottom-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                <div
+                    class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                    <div
+                        class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
+                        START
+                    </div>
+                </div>
+            </button>
+
+            <button
+                class="cart-btn-start flex items-center justify-center absolute top-[6%] right-[4%] md:top-[2.5%] md:right-[1.9%] bg-[#1B162A] border-[0.48px] border-white rounded-[2.86px] shadow-[0px_3.81px_0px_0px_#FFFFFF47] w-[42px] h-[42px] md:bg-[#1B162A] md:border-white md:rounded-[6px] md:shadow-[0px_8px_0px_0px_#FFFFFF47] md:w-[63px] md:h-[63px] lg:w-[90px] lg:h-[90px] z-200">
+                <img src="/textures/Images/cart.png" alt="cart-btn"
+                    class="lg:w-[53px] lg:h-[51px] md:w-[37px] md:h-[36px] w-[25px] h-[24px]">
+            </button>
+
+            <div
+                class="coins-ui-start flex items-center justify-around absolute top-[6%] left-[4%] md:left-auto md:top-[2.5%] md:right-[19%] lg:right-[16%] xl:right-[10%] w-[133px] h-[43px] md:w-[199px] md:h-[63px] lg:w-[280px] lg:h-[90px] bg-[#1B162A] border-white border-[0.48px] md-border-[0.71px] lg-border-[1px] rounded-[2.86px] md:rounded-[6px] z-200">
+                <img src="/textures/Images/dhiram.png" alt="coin-btn"
+                    class="lg:w-[55px] lg:h-[58px] md:w-[39px] md:h-[41px] w-[26px] h-[27px]">
+                <div
+                    class="coins-text font-[Koulen] font-normal text-[27px] md:text-[40px] lg:text-[57px] text-center uppercase text-[#FFFFFF]">
+                    9456
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div
+            class="pause-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-201 hidden flex-col gap-6.5 items-center justify-center">
+            <button
+                class="resume-btn z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                <div class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg-1.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                    <div
+                        class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
+                        RESUME
+                    </div>
+                </div>
+            </button>
+
+            <button
+                class="home-btn-pause z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                <div
+                    class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                    <div
+                        class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
+                        HOME
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <!-- Confirm purchase screen -->
+        <!-- <div class="confirm-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-200 flex items-center justify-center">
+            <div class="confirm-screen-content flex flex-col gap-7 lg:gap-12 w-[390px] h-[275px] md:w-[553px] md:h-[370px] lg:w-[989px] lg:h-[375px] border-[2.89px] border-white bg-[#0E1A30]">
+                <div class="top-section flex flex-col items-center justify-center gap-8">
+                    <button
+                        class="shop-back-btn bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly align-middle self-start border border-[#FFFFFF]">
+                        <img src="/textures/Images/back-btn-img.png" alt="back-btn" class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
+                        <div class="shop-back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">SHOP</div>
+                    </button>
+
+                    <div
+                        class="confirm-text-ques font-[Koulen] font-normal text-[22.84px] md:text-[31px] lg:text-[48px] text-center uppercase text-white">
+                        Are you sure want to buy this?
+                    </div>
+                </div>
+
+                <div class="bottom-section flex flex-col lg:flex-row md:gap-5.5 lg:gap-8.5 items-center justify-center gap-4">
+                    <button class="cancel-btn z-200 w-[202px] h-[50px] md:w-[282px] md:h-[70px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] lg:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                        <div class="btn-img w-[188px] h-[40px] md:w-[263px] md:h-[56px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg-1.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                            <div class="cancel-btn-text font-[Koulen] font-normal text-[39px] md:text-[54px] lg:text-[82.48px] text-center text-[#142340]">
+                                CANCEL
+                            </div>
+                        </div>
+                    </button>
+
+                    <button class="yes-btn z-200 w-[202px] h-[50px] md:w-[282px] md:h-[70px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] lg:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                        <div class="btn-img w-[188px] h-[40px] md:w-[263px] md:h-[56px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                            <div class="yes-btn-text font-[Koulen] font-normal text-[39px] md:text-[54px] lg:text-[82.48px] text-center text-[#142340]">
+                                YES
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Start coupon display screen -->
+        <div class="hidden absolute start-coupon-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-200 items-center justify-center">
+            <div class="start-coupon-screen-content flex flex-col gap-7 lg:gap-5 w-[390px] h-[210px] md:w-[553px] md:h-[250px] lg:w-[989px] lg:h-[300px] border-[2.89px] border-white bg-[#0E1A30]">
+                <button
+                    class="back-btn-start-coupon bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly align-middle self-start border border-[#FFFFFF]">
+                    <img src="/textures/Images/back-btn-img.png" alt="back-btn" class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
+                    <div class="back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">Back</div>
+                </button>
+                <div class="top-section-start-coupon flex flex-col items-center justify-center gap-8">
+                    <div
+                        class="start-coupon-text font-[Koulen] font-normal text-[22.84px] md:text-[31px] lg:text-[48px] text-center uppercase text-white">
+                        Yay you got a 5% discount coupon
+                    </div>
+                </div>
+
+                <div class="bottom-section-start-coupon flex flex-col lg:flex-row md:gap-5.5 lg:gap-8.5 items-center justify-center gap-4 font-[Koulen] font-normal text-[22.84px] md:text-[31px] lg:text-[48px] text-center uppercase text-white">
+                    Coupon Code - Sarea 5
+                </div>
+            </div>
+        </div>
+
+        <!-- Coins collect screen -->
+        <div
+            class="coins-collect-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-200 hidden items-center justify-center">
+            <div
+                class="coins-collect-screen-content flex flex-col items-center justify-around w-[365px] h-[414px] md:w-[703px] md:h-[515px] lg:w-[989px] lg:h-[725px] border-[2.89px] border-white bg-[#0E1A30]">
+                <!-- Top Section -->
+                <div class="top-section-wrapper w-full flex items-center justify-center md:h-[15%] lg:h-[15%]">
+                    <div
+                        class="top-section-coins font-[Koulen] font-normal text-[35px] md:text-[60px] lg:text-[75px] text-white text-center">
+                        COINS COLLECTED
+                    </div>
+                </div>
+
+                <!-- Middle Section -->
+                <div class="middle-section-wrapper w-full flex items-center justify-center md:h-[40%] lg:h-[40%]">
+                    <div
+                        class="middle-section-coins w-[142px] h-[142px] md:w-[212px] md:h-[212px] lg:w-[300px] lg:h-[300px] bg-[url('/textures/Images/rectangle41.png')] bg-no-repeat bg-center bg-cover relative flex flex-col">
+                        <div
+                            class="coin-middle-upper relative w-full h-[73%] flex items-center justify-center overflow-hidden">
+                            <img src="/textures/Images/vector-1.png" alt="" class="opacity-100 mix-blend-overlay" />
+                            <img src="/textures/Images/dhiram.png" alt="coin"
+                                class="absolute w-[75px] h-[79px] md:w-[112px] md:h-[118px] lg:w-[158px] lg:h-[168px]" />
+                        </div>
+
+                        <div
+                            class="coin-middle-lower-coin-text w-full h-[27%] bg-[url('/textures/Images/rectangle-42.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center font-[Koulen] font-normal text-[28px] md:text-[42px] lg:text-[60px] text-center text-white">
+                            9456
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="bottom-section-wrapper w-full flex items-center justify-center md:h-[30%] lg:h-[30%]">
+                    <div
+                        class="bottom-section-coins flex flex-col md:flex-row lg:flex-row items-center justify-center gap-4 md:gap-8">
+                        <!-- Home Button -->
+                        <button
+                            class="home-btn-coins z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                            <div
+                                class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg-1.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                                <div
+                                    class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
+                                    HOME
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Play Again Button -->
+                        <button
+                            class="play-again-btn-coins z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                            <div
+                                class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                                <div
+                                    class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
+                                    PLAY AGAIN
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Software boost -->
+        <div
+            class="boostTimerContainer hidden absolute bottom-[10%] md:bottom-[3%] left-[5%] overflow-hidden items-center bg-[#418BF8] w-[160px] h-[42px] md:w-[238px] md:h-[63px] lg:w-[335px] lg:h-[90px] lg:shadow-[0px_8px_0px_0px_#FFFFFF47] md:shadow-[0px_5.69px_0px_0px_#FFFFFF47] shadow-[0px_3.81px_0px_0px_#FFFFFF47]  border-white border-[0.48px] rounded-[2.86px] md:rounded-[6px] z-199">
+            <div
+                class="boost-icon w-[26%] h-full bg-[#1B162A] flex items-center justify-center border-white border-[0.48px] rounded-[2.86px] md:rounded-[4px] lg:rounded-[6px]">
+                <img src="/textures/Images/wrench-icon.png" alt="" class="w-[23px] md:w-[34px] lg:w-[49px]">
+            </div>
+            <div class="boost-bar flex items-center justify-evenly bg-[#418BF8] w-[74%] h-full">
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+                <div
+                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
+                </div>
+            </div>
+        </div>
+
+        <!-- coins ui gameplay -->
+        <div
+            class="coins-ui-gameplay hidden items-center justify-around absolute top-[6%] md:top-[7%] md:left-auto md:right-[3%] left-[3%] lg:left-auto lg:right-[3%] translate-y-[-50%] w-[133px] h-[43px] md:w-[199px] md:h-[63px] lg:w-[280px] lg:h-[90px] bg-[#1B162A] border-white border-[0.48px] md-border-[0.71px] lg-border-[1px] rounded-[2.86px] md:rounded-[6px] z-199">
+            <img src="/textures/Images/dhiram.png" alt="coin-btn"
+                class="lg:w-[55px] lg:h-[58px] md:w-[39px] md:h-[41px] w-[26px] h-[27px]">
+            <div
+                class="coins-text-gameplay font-[Koulen] font-normal text-[27px] md:text-[40px] lg:text-[57px] text-center uppercase text-[#FFFFFF]">
+                9456
+            </div>
+        </div>
+
+        <!-- Pause Button -->
+        <button
+            class="pause-btn-gameplay flex items-center justify-center absolute translate-y-[-50%] top-[6%] right-[4%] md:top-[7%] md:left-[1.9%] bg-[#1B162A] border-[0.48px] border-white rounded-[2.86px] shadow-[0px_3.81px_0px_0px_#FFFFFF47] w-[42px] h-[42px] md:bg-[#1B162A] md:border-white md:rounded-[6px] md:shadow-[0px_8px_0px_0px_#FFFFFF47] md:w-[63px] md:h-[63px] lg:w-[90px] lg:h-[90px] z-199">
+            <img src="/textures/Images/pause.png" alt="pause-btn"
+                class="lg:w-[39px] lg:h-[51px] md:w-[27px] md:h-[36px] w-[18px] h-[24px]">
+        </button>
+
+        <!-- Health Bar -->
+        <div
+            class="energy-bar absolute top-[12%] md:top-[14%] lg:top-[8%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[400px] h-[28px] md:w-[533px] md:h-[32px] lg:w-[750px] lg:h-[40px] bg-black border border-white rounded-[6px] hidden items-center justify-center z-199">
+            <div class="wrapper w-[98%] h-full relative flex items-center justify-center">
+
+                <!-- Blue layer (max capacity) -->
+                <div
+                    class="current-max-mask absolute left-0 w-full h-[60%] overflow-hidden flex items-center justify-center">
+                    <div class="current-max absolute left-0 top-0 w-full h-full bg-[#418BF8]"></div>
+                    <span
+                        class="current-max-text absolute text-[#ffffff] text-center font-[Koulen] font-normal text-[8.97px] md:text-[11.77px] lg:text-[16.77px] uppercase translate-y-[0.5px] md:translate-y-px">
+                        CURRENT MAXIMUM CAPACITY - 100
+                    </span>
+                </div>
+                <!-- Green layer (current charge) -->
+                <div
+                    class="current-charge absolute left-0 w-[27%] h-[60%] bg-[#CFFA52] flex items-center justify-center">
+                    <span
+                        class="current-charge-text translate-y-[0.5px] md:translate-y-px text-[#3F3F3F] text-center font-[Koulen] font-normal text-[8.97px] md:text-[11.77px] lg:text-[16.77px] uppercase">
+                        CURRENT CHARGE - 27
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <canvas class="webgl"></canvas>
+    <script type="module" src="./script.js"></script>
+</body>
+
+</html>
