@@ -1,29 +1,31 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
+import GameConfig from '../../../../static/Configs/GameConfig.js'
 
 export default class Shades {
     constructor(position) {
         this.experience = new Experience()
         this.audioManager = this.experience.audioManager
         this.scene = this.experience.scene
-
+        this.resources = this.experience.resources
+        this.resource = this.resources.items.shadesModel
         this.position = position
         this.type = 'shades'
+        this.isRare = true
         this.rotationSpeed = 0.03
         this.active = true
-        this.yOffset = 0.3
-
+        this.yOffset = 0.65
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
+        this.chargeDecreaseRate = GameConfig.shadesConfig.chargeDepletionValue
+        console.log('shades');
     }
 
     setModel() {
-        this.model = new THREE.Mesh(
-            new THREE.BoxGeometry(0.3, 0.3, 0.3),
-            new THREE.MeshStandardMaterial({ color: 0x4444ff })
-        )
+        this.model = this.resource.scene.clone()
+        this.model.scale.set(0.12, 0.12, 0.12)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
         this.model.castShadow = true
@@ -41,7 +43,7 @@ export default class Shades {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('shadesPickup')
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

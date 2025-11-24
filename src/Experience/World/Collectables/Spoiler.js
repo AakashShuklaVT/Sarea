@@ -1,15 +1,20 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
+import GameConfig from '../../../../static/Configs/GameConfig.js'
 
 export default class Spoiler {
     constructor(position) {
         this.experience = new Experience()
         this.audioManager = this.experience.audioManager
         this.scene = this.experience.scene
+        this.resources = this.experience.resources
+        this.resource = this.resources.items.spoilerModel
 
         this.position = position
         this.type = 'spoiler'
+        this.isRare = true
+
         this.rotationSpeed = 0.03
         this.active = true
         this.yOffset = 0.3
@@ -17,13 +22,13 @@ export default class Spoiler {
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
+        this.chargeDecreaseRate = GameConfig.spoilerConfig.chargeDepletionValue
+        console.log('spoiler'); 
     }
 
     setModel() {
-        this.model = new THREE.Mesh(
-            new THREE.BoxGeometry(0.3, 0.3, 0.3),
-            new THREE.MeshStandardMaterial({ color: 0xff4444 })
-        )
+        this.model = this.resource.scene.clone()
+        this.model.scale.set(0.15, 0.2, 0.2)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
         this.model.castShadow = true
@@ -41,7 +46,7 @@ export default class Spoiler {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('spoilerPickup')
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

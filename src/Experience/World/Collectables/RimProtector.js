@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
+import GameConfig from '../../../../static/Configs/GameConfig.js'
 
 export default class RimProtector {
     constructor(position) {
@@ -17,6 +18,7 @@ export default class RimProtector {
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
+        console.log('spawned');
     }
 
     setModel() {

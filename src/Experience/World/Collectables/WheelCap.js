@@ -3,48 +3,43 @@ import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
 
-export default class SoftwareBoost {
+export default class WheelCap {
     constructor(position) {
         this.experience = new Experience()
         this.audioManager = this.experience.audioManager
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        this.resource = this.resources.items.wrenchModel
+        this.resource = this.resources.items.wheelCapModel
         this.position = position
-        this.type = 'softwareBoost'
+        this.type = 'wheelcap'
         this.isRare = true
         this.rotationSpeed = 0.03
         this.active = true
-        this.yOffset = GameConfig.spawnValues.yOffset + 0.25
+        this.yOffset = 0.65
         this.setModel()
         this.createBubble()
-        this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.29)
-        this.chargeDecreaseRate = GameConfig.softwareBoostConfig.chargeDepletionValue
+        this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
+        this.chargeDecreaseRate = GameConfig.wheelcapConfig.chargeDepletionValue
+        console.log('wheelcap');
     }
 
     setModel() {
         this.model = this.resource.scene.clone()
-        this.model.scale.set(0.068, 0.2, 0.068)
+        this.model.scale.set(0.9, 0.9, 0.9)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
-        this.model.rotation.z = Math.PI / 2
-        this.model.traverse((child) => {
-            if (child.name == 'Object_4') {
-                child.material.color.set(new THREE.Color('#ffffff'))
-            }
-        })
+        this.model.castShadow = true
+        this.model.receiveShadow = true
         this.scene.add(this.model)
     }
 
     createBubble() {
-        const bubbleClass = new Bubble(0.29)
-        this.bubble = bubbleClass.create(this.position.x, this.position.y + 0.33, this.position.z)
-    }
-
-    update() {
-        if (this.active) {
-            this.model.rotation.y += this.rotationSpeed
-        }
+        const bubbleClass = new Bubble(0.35)
+        this.bubble = bubbleClass.create(
+            this.position.x,
+            this.position.y + 0.6,
+            this.position.z
+        )
     }
 
     onCollision() {
@@ -55,13 +50,17 @@ export default class SoftwareBoost {
         this.active = false
     }
 
+    update() {
+        if (this.active) this.model.rotation.y += this.rotationSpeed
+    }
+
     playAudio() {
-        this.audioManager.create('softwareBoostAudio', {
-            buffer: this.resources.items['softwareBoostAudio'],
+        this.audioManager.create('slowChargerAudio', {
+            buffer: this.experience.resources.items['slowChargerAudio'],
             type: 'global',
             loop: false,
-            volume: 0.5,
+            volume: 0.2,
         })
-        this.audioManager.play('softwareBoostAudio')
+        this.audioManager.play('slowChargerAudio')
     }
 }

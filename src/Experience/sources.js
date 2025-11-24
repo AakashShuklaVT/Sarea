@@ -53,6 +53,31 @@ export default [
         path: 'models/Collectables/slow-charger.glb'
     },
     {
+        name: 'wheelCapModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/wheel-cap.glb'
+    },
+    {
+        name: 'spoilerModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/spoiler.glb'
+    },
+    {
+        name: 'shadesModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/shade.glb'
+    },
+    {
+        name: 'carplayModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/carplay.glb'
+    },
+    {
+        name: 'jackPadsModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/jackpads.glb'
+    },
+    {
         name: 'wrenchModel',
         type: 'gltfModel',
         path: 'models/Collectables/wrench.glb'

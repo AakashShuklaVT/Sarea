@@ -19,6 +19,7 @@ export default class Car {
         this.laneCount = GameConfig.laneData.laneCount
         this.laneWidth = GameConfig.laneData.laneWidth
         this.speed = GameConfig.car.speed
+
         this.acceleration = GameConfig.car.acceleration
         this.wheelRadius = GameConfig.car.wheelRadius
         this.maxSpeed = GameConfig.car.maxSpeed
@@ -28,9 +29,10 @@ export default class Car {
         this.maxCharge = GameConfig.car.maxCharge
         this.chargeDecreaseRate = GameConfig.car.chargeDecreaseRate
 
-        this.isSoftwareBoostActive = false
-        this.currentSoftwareBoostTime = 0
-        this.maxSoftwareBoostTime = GameConfig.softwareBoostConfig.maxSoftwareBoostTime
+        this.ischargeSaveActive = false
+        this.currentChargeSaveTime = 0
+        this.chargeSaveTimerMax = GameConfig.timerConfig.maxTime
+        this.chargeSaveAmount = 0
 
         this.isDead = false
         this.isLaneChanging = false
@@ -54,7 +56,7 @@ export default class Car {
         this.model.scale.set(GameConfig.car.scale, GameConfig.car.scale, GameConfig.car.scale)
         this.model.rotation.y = Math.PI
         this.scene.add(this.model)
-        
+
         this.wheels = {}
         this.model.traverse((child) => {
             if (child instanceof THREE.Mesh) {
@@ -75,7 +77,7 @@ export default class Car {
         const offset = (this.laneIndex - (this.laneCount - 1) / 2) * this.laneWidth
         this.model.position.set(offset, -0.03, -1.5)
     }
-    
+
     registerEvents() {
         this.eventEmitter.on('left', () => this.moveLeft())
         this.eventEmitter.on('right', () => this.moveRight())
@@ -90,9 +92,10 @@ export default class Car {
             this.decreaseCharge(eventData.damage)
         })
 
-        this.eventEmitter.on('softwareBoostPickup', () => {
-            this.isSoftwareBoostActive = true
-            this.currentSoftwareBoostTime = 0
+        this.eventEmitter.on('chargeSavePickup', (reducedChargeDecreaseRate) => {
+            this.reducedChargeDecreaseRate = reducedChargeDecreaseRate * 0.5
+            this.ischargeSaveActive = true
+            this.currentChargeSaveTime = 0
         })
 
         this.eventEmitter.on('gameOver', () => this.gameOver())
@@ -180,19 +183,21 @@ export default class Car {
         const distanceMoved = previousZ - this.model.position.z
 
         const rotationAngle = distanceMoved / this.wheelRadius
- 
+
         for (let wheel of Object.values(this.wheels)) wheel.rotation.x += rotationAngle
 
-        if (this.isSoftwareBoostActive) {
-            this.currentSoftwareBoostTime += delta
-            if (this.currentSoftwareBoostTime >= this.maxSoftwareBoostTime) {
-                this.isSoftwareBoostActive = false
-                this.currentSoftwareBoostTime = 0
+        if (this.ischargeSaveActive) {
+            this.currentChargeSaveTime += delta
+            if (this.currentChargeSaveTime >= this.chargeSaveTimerMax) {
+                this.ischargeSaveActive = false
+                this.currentChargeSaveTime = 0
             }
+            this.chargeDecrease = this.reducedChargeDecreaseRate * delta * (this.speed / this.maxSpeed)
+            this.decreaseCharge(this.chargeDecrease)
         }
         else {
-            const chargeDecrease = this.chargeDecreaseRate * delta * (this.speed / this.maxSpeed)
-            this.decreaseCharge(chargeDecrease)
+            this.chargeDecrease = this.chargeDecreaseRate * delta * (this.speed / this.maxSpeed)
+            this.decreaseCharge(this.chargeDecrease)
         }
     }
 }

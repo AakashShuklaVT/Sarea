@@ -14,6 +14,7 @@ export default {
             SHADES: "shades",
             JACKPADS: "jackpads",
             CARPLAY: "carplay",
+            WHEELCAP: "wheelcap",
         },
     },
 
@@ -38,7 +39,7 @@ export default {
 
     spawnValues: {
         startOffset: 50,
-        minSpacing: 7,
+        minSpacing: 9,
         maxSpacing: 12,
         segmentLength: 100,
         visibleDistance: 100,
@@ -53,9 +54,43 @@ export default {
     },
 
     collectableSpawnRates: {
-        easy: { fastCharger: 48, slowCharger: 48, softwareBoost: 6 },
-        medium: { fastCharger: 48, slowCharger: 48, softwareBoost: 6 },
-        hard: { fastCharger: 48, slowCharger: 48, softwareBoost: 6 },
+        easy: {
+            fastCharger: 48,
+            slowCharger: 48,
+            softwareBoost: 6,
+            spoiler: 60,
+            rimProtector: 60,
+            shades: 60,
+            jackpads: 60,
+            carplay: 60,
+            wheelcap: 60,
+        },
+
+        medium: {
+            fastCharger: 48,
+            slowCharger: 48,
+            softwareBoost: 6,
+
+            spoiler: 60,
+            rimProtector: 60,
+            shades: 60,
+            jackpads: 60,
+            carplay: 60,
+            wheelcap: 60,
+        },
+
+        hard: {
+            fastCharger: 48,
+            slowCharger: 48,
+            softwareBoost: 6,
+
+            spoiler: 6,
+            rimProtector: 60,
+            shades: 60,
+            jackpads: 60,
+            carplay: 60,
+            wheelcap: 60,
+        },
     },
 
     obstacleConfig: {
@@ -63,6 +98,30 @@ export default {
         type2: { damage: 20 },
         type3: { damage: 15 },
         type4: { damage: 20 },
+        obstaclePatterns: {
+            type2Line: (laneIndex) => [
+                { type: "type2", laneIndex: laneIndex },
+                { type: "type2", laneIndex: laneIndex },
+                { type: "type2", laneIndex: laneIndex },
+                { type: "type2", laneIndex: laneIndex },
+            ],
+            type2LineWithType3: (laneIndex) => [
+                { type: "type3", laneIndex: laneIndex },
+                { type: "type2", laneIndex: laneIndex },
+                { type: "type2", laneIndex: laneIndex },
+            ],
+            type4Line: (laneIndex) => [
+                { type: "type4", laneIndex: laneIndex },
+                { type: "type4", laneIndex: laneIndex },
+                { type: "type4", laneIndex: laneIndex },
+                { type: "type4", laneIndex: laneIndex },
+            ],
+            type4LineWithType3: (laneIndex) => [
+                { type: "type3", laneIndex: laneIndex },
+                { type: "type4", laneIndex: laneIndex },
+                { type: "type4", laneIndex: laneIndex },
+            ],
+        },
     },
 
     chargerConfig: {
@@ -70,7 +129,31 @@ export default {
         fastCharger: { batteryRecoveryAmount: 25, batteryDepletionValue: 2 },
     },
 
+    timerConfig: {
+        maxTime: 15,
+    },
+
     softwareBoostConfig: {
-        maxSoftwareBoostTime: 15,
+        chargeDepletionValue: 0,
+    },
+
+    carplayConfig: {
+        chargeDepletionValue: 1.425,   // 5% reduction
+    },
+
+    jackpadsConfig: {
+        chargeDepletionValue: 1.425,   // 5% reduction
+    },
+
+    spoilerConfig: {
+        chargeDepletionValue: 1.35,     // 10% reduction
+    },
+
+    shadesConfig: {
+        chargeDepletionValue: 0.75,    // 50% reduction
+    },
+
+    wheelcapConfig: {
+        chargeDepletionValue: 1.35,    // 10% reduction
     },
 };

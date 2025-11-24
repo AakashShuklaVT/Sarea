@@ -8,13 +8,14 @@ export default class SpawnManager {
     constructor(car) {
         this.experience = new Experience()
         this.scene = this.experience.scene
+        this.eventEmitter = this.experience.eventEmitter
         this.car = car;
         this.entities = [];
         this.managers = [];
 
         const { laneData, spawnValues } = GameConfig;
         this.laneCount = laneData.laneCount;
-        this.laneWidth = laneData.laneWidth; 
+        this.laneWidth = laneData.laneWidth;
 
         this.minSpacing = spawnValues.minSpacing;
         this.maxSpacing = spawnValues.maxSpacing;
@@ -34,31 +35,11 @@ export default class SpawnManager {
         this.segmentEntitiesCount = 0;
         this.segmentSoftwareBoostSpawned = false;
 
+        this.isRareUnlocked = true
+        this.isRareActive = false;
+
         // Obstacle patterns
-        this.obstaclePatterns = {
-            type2Line: (laneIndex) => [
-                { type: "type2", laneIndex : laneIndex },
-                { type: "type2", laneIndex: laneIndex },
-                { type: "type2", laneIndex: laneIndex },
-                { type: "type2", laneIndex: laneIndex },
-            ],
-            type2LineWithType3: (laneIndex) => [
-                { type: "type3", laneIndex : laneIndex },
-                { type: "type2", laneIndex : laneIndex },
-                { type: "type2", laneIndex: laneIndex },
-            ],
-            type4Line: (laneIndex) => [
-                { type: "type4", laneIndex : laneIndex },
-                { type: "type4", laneIndex: laneIndex },
-                { type: "type4", laneIndex: laneIndex },
-                { type: "type4", laneIndex: laneIndex },
-            ],
-            type4LineWithType3: (laneIndex) => [
-                { type: "type3", laneIndex : laneIndex },
-                { type: "type4", laneIndex : laneIndex },
-                { type: "type4", laneIndex: laneIndex },
-            ],
-        };
+        this.obstaclePatterns = GameConfig.obstacleConfig.obstaclePatterns;
 
         // Coin pattern
         this.coinPattern = (laneIndex) => [
@@ -66,6 +47,13 @@ export default class SpawnManager {
             { type: TYPES.COLLECTABLE.COIN, laneIndex },
             { type: TYPES.COLLECTABLE.COIN, laneIndex },
         ];
+
+        this.eventEmitter.on("rareItemTimerEnd", () => {
+            this.isRareUnlocked = true
+        })
+        this.eventEmitter.on("chargeSavePickup", () => {
+            this.isRareUnlocked = false
+        })
     }
 
     registerManager(manager, type) {
@@ -132,28 +120,75 @@ export default class SpawnManager {
 
     spawnCollectable(baseZ) {
         if (!this.collectableManagers.length) return 0;
+
         const manager = this.collectableManagers[0];
-        const laneIndex = this.getFreeLaneIndex(baseZ);
-        if (laneIndex === null) return 0;
+        const lane = this.getFreeLaneIndex(baseZ);
+        if (lane === null) return 0;
 
         const rates = GameConfig.collectableSpawnRates[this.phase];
-        const r = Math.random() * 100;
-        let type = null
+        if (!rates) return 0;
 
-        if (r < rates.softwareBoost) type = TYPES.COLLECTABLE.SOFTWARE_BOOST;
-        // 5
-        else if (r < rates.softwareBoost + rates.slowCharger) type = TYPES.COLLECTABLE.SLOW_CHARGER;
-        // 15
-        else  type = TYPES.COLLECTABLE.FAST_CHARGER;
+        const keyToType = {
+            fastCharger: TYPES.COLLECTABLE.FAST_CHARGER,
+            slowCharger: TYPES.COLLECTABLE.SLOW_CHARGER,
+            softwareBoost: TYPES.COLLECTABLE.SOFTWARE_BOOST,
+            spoiler: TYPES.COLLECTABLE.SPOILER,
+            shades: TYPES.COLLECTABLE.SHADES,
+            jackpads: TYPES.COLLECTABLE.JACKPADS,
+            carplay: TYPES.COLLECTABLE.CARPLAY,
+            wheelcap: TYPES.COLLECTABLE.WHEELCAP
+        };
 
-        const x = this.laneIndexToX(laneIndex);
+        const rareKeys = [
+            TYPES.COLLECTABLE.SPOILER,
+            TYPES.COLLECTABLE.SHADES,
+            TYPES.COLLECTABLE.JACKPADS,
+            TYPES.COLLECTABLE.CARPLAY,
+            TYPES.COLLECTABLE.WHEELCAP,
+            TYPES.COLLECTABLE.SOFTWARE_BOOST
+        ];
+
+        // weighted key pick
+        const entries = Object.entries(rates);
+        const total = entries.reduce((s, [, w]) => s + (+w || 0), 0);
+        if (total === 0) return 0;
+
+        let r = Math.random() * total;
+        let chosenKey = null;
+
+        for (const [key, w] of entries) {
+            r -= (+w || 0);
+            if (r <= 0) {
+                chosenKey = key;
+                break;
+            }
+        }
+
+        if (!chosenKey) return 0;
+
+        // rare gating
+        if (rareKeys.includes(chosenKey)) {
+            if (!this.isRareUnlocked || this.isRareActive) {
+                chosenKey = "fastCharger";
+            } else {
+                chosenKey = rareKeys[Math.floor(Math.random() * rareKeys.length)];
+                this.isRareActive = true;
+            }
+        }
+
+        const type = keyToType[chosenKey];
+        if (!type) return 0;
+
+        const x = this.laneIndexToX(lane);
         const collectable = manager.factory.create(type, new THREE.Vector3(x, 0, baseZ));
+        if (!collectable) return 0;
+
+        collectable.isRare = rareKeys.includes(chosenKey);
+
         this.scene.add(collectable.model);
         this.entities.push(collectable);
-        if (type === TYPES.COLLECTABLE.SOFTWARE_BOOST) this.segmentSoftwareBoostSpawned = true;
+        this.laneLastZ[lane] = baseZ;
 
-        this.segmentEntitiesCount++;
-        this.laneLastZ[laneIndex] = baseZ;
         return 1;
     }
 
@@ -215,6 +250,9 @@ export default class SpawnManager {
             if (collided) {
                 e.onCollect?.(this.car);
                 e.onCollision?.(this.car);
+                if (e.isRare != undefined) {
+                    if (e.isRare) this.isRareActive = false;
+                }
                 this.scene.remove(e.model);
                 if (e.bubble) this.scene.remove(e.bubble);
                 this.entities.splice(i, 1);
@@ -222,11 +260,14 @@ export default class SpawnManager {
             }
 
             if (e.model.position.z > carZ + this.cleanupDistance) {
+
                 this.scene.remove(e.model);
+                if (e.isRare != undefined) {
+                    if (e.isRare) this.isRareActive = false;
+                }
                 if (e.bubble) this.scene.remove(e.bubble);
                 this.entities.splice(i, 1);
             }
         }
     }
-
 }

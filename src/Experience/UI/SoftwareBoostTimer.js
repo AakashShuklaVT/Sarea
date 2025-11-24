@@ -7,7 +7,7 @@ export default class SoftwareBoostTimer {
         this.eventEmitter = this.experience.eventEmitter
         this.time = this.experience.time
 
-        this.duration = GameConfig.softwareBoostConfig.maxSoftwareBoostTime
+        this.duration = GameConfig.timerConfig.maxTime
         this.elapsed = 0
         this.running = false
 
@@ -16,7 +16,7 @@ export default class SoftwareBoostTimer {
 
         this.hide()
         
-        this.eventEmitter.on("softwareBoostPickup", () => {
+        this.eventEmitter.on("chargeSavePickup", () => {
             this.start()
         })
         
@@ -51,6 +51,7 @@ export default class SoftwareBoostTimer {
             this.running = false
             this.hide()
             this.resetSegments()
+            this.eventEmitter.trigger("rareItemTimerEnd")
         }
     }
 

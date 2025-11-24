@@ -7,6 +7,7 @@ import Shades from './Shades.js'
 import SlowCharger from './SlowCharger.js'
 import SoftwareBoost from './SoftwareBoost.js'
 import Spoiler from './Spoiler.js'
+import WheelCap from './WheelCap.js'
 
 export default class CollectableFactory {
     constructor() {
@@ -20,6 +21,7 @@ export default class CollectableFactory {
             shades: (position) => new Shades(position),
             jackpads: (position) => new Jackpads(position),
             carplay: (position) => new Carplay(position),
+            wheelcap: (position) => new WheelCap(position),
         }
     }
 
