@@ -68,6 +68,11 @@ export default [
         path: 'models/Collectables/shade.glb'
     },
     {
+        name: 'rimProtectorModel',
+        type: 'gltfModel',
+        path: 'models/Collectables/rim-protector.glb'
+    },
+    {
         name: 'carplayModel',
         type: 'gltfModel',
         path: 'models/Collectables/carplay.glb'

@@ -47,7 +47,7 @@ export default class CoinsCollectScreen {
             this.setCoins(this.coinCounterUI.coins)
             setTimeout(() => {
                 this.show()
-            }, 500)
+            }, 600)
         });
 
         if (this.homeButton) {

@@ -46,7 +46,7 @@ export default class Spoiler {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

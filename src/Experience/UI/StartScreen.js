@@ -15,7 +15,6 @@ export default class StartScreen {
         this.getUIElements();
         this.updateCoinsDisplay();
         this.registerEvents();
-        this.tryShowCouponScreen()
     }
 
     initCoins() {
@@ -24,7 +23,7 @@ export default class StartScreen {
             localStorage.setItem("totalCoins", "0");
             this.totalCoins = 0;
             this.newPlayer = true;
-        } 
+        }
         else {
             this.totalCoins = parseInt(storedCoins, 10);
         }
@@ -46,10 +45,11 @@ export default class StartScreen {
     }
 
     tryShowCouponScreen() {
-        if(this.newPlayer) {
+        if (this.newPlayer) {
             setTimeout(() => {
                 this.showCouponScreen()
-            }, 2000)
+                this.newPlayer = false
+            }, 400)
         }
     }
 
@@ -57,7 +57,7 @@ export default class StartScreen {
         if (this.startScreen)
             this.startScreen.style.display = "flex";
     }
-    
+
     hide() {
         if (this.startScreen)
             this.startScreen.style.display = "none";
@@ -67,7 +67,7 @@ export default class StartScreen {
         if (this.startCouponScreen)
             this.startCouponScreen.style.display = "flex";
     }
-    
+
     hideCouponScreen() {
         if (this.startCouponScreen)
             this.startCouponScreen.style.display = "none";
@@ -80,6 +80,10 @@ export default class StartScreen {
 
         this.eventEmitter.on("goHome", () => {
             this.show();
+        });
+
+        this.eventEmitter.on("gameOver", () => {
+            this.tryShowCouponScreen();
         });
 
         this.eventEmitter.on("updateTotalCoins", (coins) => {
@@ -98,8 +102,8 @@ export default class StartScreen {
                 this.eventEmitter.trigger("gameStart");
             });
         }
-        
-        if(this.backBtnCouponScreen) {
+
+        if (this.backBtnCouponScreen) {
             this.backBtnCouponScreen.addEventListener("click", () => {
                 this.hideCouponScreen();
             });

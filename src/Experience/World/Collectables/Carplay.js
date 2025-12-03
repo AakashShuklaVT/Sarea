@@ -15,7 +15,7 @@ export default class Carplay {
         this.isRare = true
         this.rotationSpeed = 0.03
         this.active = true
-        this.yOffset = 0.3
+        this.yOffset = 0.2
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
@@ -37,13 +37,13 @@ export default class Carplay {
         const bubbleClass = new Bubble(0.35)
         this.bubble = bubbleClass.create(
             this.position.x,
-            this.position.y + 0.6,
+            this.position.y + 0.35,
             this.position.z
         )
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

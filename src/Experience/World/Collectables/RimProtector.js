@@ -8,7 +8,8 @@ export default class RimProtector {
         this.experience = new Experience()
         this.audioManager = this.experience.audioManager
         this.scene = this.experience.scene
-
+        this.resources = this.experience.resources
+        this.resource = this.resources.items.rimProtectorModel
         this.position = position
         this.type = 'rimProtector'
         this.rotationSpeed = 0.03
@@ -22,10 +23,8 @@ export default class RimProtector {
     }
 
     setModel() {
-        this.model = new THREE.Mesh(
-            new THREE.BoxGeometry(0.3, 0.3, 0.3),
-            new THREE.MeshStandardMaterial({ color: 0x44ff44 })
-        )
+        this.model = this.resource.scene.clone()
+        this.model.scale.set(3.9, 3.9, 3.9)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
         this.model.castShadow = true

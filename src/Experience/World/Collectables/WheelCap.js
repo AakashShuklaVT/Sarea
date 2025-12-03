@@ -15,7 +15,7 @@ export default class WheelCap {
         this.isRare = true
         this.rotationSpeed = 0.03
         this.active = true
-        this.yOffset = 0.65
+        this.yOffset = 0.6
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
@@ -43,15 +43,11 @@ export default class WheelCap {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false
         this.active = false
-    }
-
-    update() {
-        if (this.active) this.model.rotation.y += this.rotationSpeed
     }
 
     playAudio() {

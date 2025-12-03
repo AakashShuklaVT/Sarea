@@ -136,7 +136,8 @@ export default class SpawnManager {
             shades: TYPES.COLLECTABLE.SHADES,
             jackpads: TYPES.COLLECTABLE.JACKPADS,
             carplay: TYPES.COLLECTABLE.CARPLAY,
-            wheelcap: TYPES.COLLECTABLE.WHEELCAP
+            wheelcap: TYPES.COLLECTABLE.WHEELCAP,
+            rimProtector: TYPES.COLLECTABLE.RIM_PROTECTOR
         };
 
         const rareKeys = [
@@ -145,7 +146,8 @@ export default class SpawnManager {
             TYPES.COLLECTABLE.JACKPADS,
             TYPES.COLLECTABLE.CARPLAY,
             TYPES.COLLECTABLE.WHEELCAP,
-            TYPES.COLLECTABLE.SOFTWARE_BOOST
+            TYPES.COLLECTABLE.SOFTWARE_BOOST,
+            TYPES.COLLECTABLE.RIM_PROTECTOR
         ];
 
         // weighted key pick

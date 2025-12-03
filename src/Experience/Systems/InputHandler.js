@@ -6,7 +6,7 @@ export default class InputHandler {
         this.eventEmitter = this.experience.eventEmitter
         this.touchStartX = 0
         this.touchEndX = 0
-        this.threshold = 100
+        this.threshold = 30
         this.init()
     }   
 

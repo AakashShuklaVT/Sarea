@@ -156,4 +156,8 @@ export default {
     wheelcapConfig: {
         chargeDepletionValue: 1.35,    // 10% reduction
     },
+
+    rimProtectorConfig: {
+        rimProtectorMaxDamage: 50,    
+    },
 };

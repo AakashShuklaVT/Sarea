@@ -15,7 +15,7 @@ export default class Shades {
         this.isRare = true
         this.rotationSpeed = 0.03
         this.active = true
-        this.yOffset = 0.65
+        this.yOffset = 0.6
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
@@ -25,7 +25,7 @@ export default class Shades {
 
     setModel() {
         this.model = this.resource.scene.clone()
-        this.model.scale.set(0.12, 0.12, 0.12)
+        this.model.scale.set(0.1, 0.1, 0.1)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
         this.model.castShadow = true
@@ -43,7 +43,7 @@ export default class Shades {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate])
+        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false
@@ -51,7 +51,7 @@ export default class Shades {
     }
 
     update() {
-        if (this.active) this.model.rotation.y += this.rotationSpeed
+    
     }
 
     playAudio() {

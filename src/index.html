@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>SAREA</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" type="image/svg" href="/textures/Images/SAREA.svg">
@@ -64,7 +65,7 @@
             </div>
 
             <button
-                class="start-btn absolute bottom-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
+                class="start-btn absolute bottom-[15%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
                 <div
                     class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
                     <div
@@ -96,7 +97,8 @@
             class="pause-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-201 hidden flex-col gap-6.5 items-center justify-center">
             <button
                 class="resume-btn z-200 w-[202px] h-[50px] md:w-[302px] md:h-[75px] lg:w-[426px] lg:h-[106px] bg-[#1B162A] border border-[#FFFFFF] rounded-[6px] shadow-[0px_3.8px_0px_0px_#FFFFFF47] md:shadow-[0px_8px_0px_0px_#FFFFFF47] flex items-center justify-center">
-                <div class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg-1.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
+                <div
+                    class="btn-img w-[188px] h-[40px] md:w-[281px] md:h-[61px] lg:w-[396px] lg:h-[86px] bg-[url('/textures/Images/button-bg-1.png')] bg-no-repeat bg-center bg-cover flex items-center justify-center">
                     <div
                         class="start-btn-text font-[Koulen] font-normal text-[39px] md:text-[58px] lg:text-[82.48px] text-center text-[#142340]">
                         RESUME
@@ -121,9 +123,9 @@
             <div class="confirm-screen-content flex flex-col gap-7 lg:gap-12 w-[390px] h-[275px] md:w-[553px] md:h-[370px] lg:w-[989px] lg:h-[375px] border-[2.89px] border-white bg-[#0E1A30]">
                 <div class="top-section flex flex-col items-center justify-center gap-8">
                     <button
-                        class="shop-back-btn bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly align-middle self-start border border-[#FFFFFF]">
+                        class="back-btn-confirm-purchase bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly align-middle self-start border border-[#FFFFFF]">
                         <img src="/textures/Images/back-btn-img.png" alt="back-btn" class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
-                        <div class="shop-back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">SHOP</div>
+                        <div class="confirm-purchase-back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">SHOP</div>
                     </button>
 
                     <div
@@ -153,12 +155,17 @@
         </div> -->
 
         <!-- Start coupon display screen -->
-        <div class="hidden absolute start-coupon-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-200 items-center justify-center">
-            <div class="start-coupon-screen-content flex flex-col gap-7 lg:gap-5 w-[390px] h-[210px] md:w-[553px] md:h-[250px] lg:w-[989px] lg:h-[300px] border-[2.89px] border-white bg-[#0E1A30]">
+        <div
+            class="hidden absolute start-coupon-screen w-full h-full backdrop-blur-[11.4px] bg-[#0000007d] z-202 items-center justify-center">
+            <div
+                class="start-coupon-screen-content flex flex-col gap-7 lg:gap-5 w-[390px] h-[210px] md:w-[553px] md:h-[250px] lg:w-[989px] lg:h-[300px] border-[2.89px] border-white bg-[#0E1A30]">
                 <button
                     class="back-btn-start-coupon bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly align-middle self-start border border-[#FFFFFF]">
-                    <img src="/textures/Images/back-btn-img.png" alt="back-btn" class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
-                    <div class="back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">Back</div>
+                    <img src="/textures/Images/back-btn-img.png" alt="back-btn"
+                        class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
+                    <div
+                        class="back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">
+                        Back</div>
                 </button>
                 <div class="top-section-start-coupon flex flex-col items-center justify-center gap-8">
                     <div
@@ -167,8 +174,9 @@
                     </div>
                 </div>
 
-                <div class="bottom-section-start-coupon flex flex-col lg:flex-row md:gap-5.5 lg:gap-8.5 items-center justify-center gap-4 font-[Koulen] font-normal text-[22.84px] md:text-[31px] lg:text-[48px] text-center uppercase text-white">
-                    Coupon Code - Sarea 5
+                <div
+                    class="bottom-section-start-coupon flex flex-col lg:flex-row md:gap-5.5 lg:gap-8.5 items-center justify-center gap-4 font-[Koulen] font-normal text-[22.84px] md:text-[31px] lg:text-[48px] text-center uppercase text-white">
+                    Coupon Code - Sarea5
                 </div>
             </div>
         </div>
@@ -237,45 +245,12 @@
 
         </div>
 
-        <!-- Software boost -->
+        <!-- timer UI -->
         <div
-            class="boostTimerContainer hidden absolute bottom-[10%] md:bottom-[3%] left-[5%] overflow-hidden items-center bg-[#418BF8] w-[160px] h-[42px] md:w-[238px] md:h-[63px] lg:w-[335px] lg:h-[90px] lg:shadow-[0px_8px_0px_0px_#FFFFFF47] md:shadow-[0px_5.69px_0px_0px_#FFFFFF47] shadow-[0px_3.81px_0px_0px_#FFFFFF47]  border-white border-[0.48px] rounded-[2.86px] md:rounded-[6px] z-199">
-            <div
-                class="boost-icon w-[26%] h-full bg-[#1B162A] flex items-center justify-center border-white border-[0.48px] rounded-[2.86px] md:rounded-[4px] lg:rounded-[6px]">
-                <img src="/textures/Images/wrench-icon.png" alt="" class="w-[23px] md:w-[34px] lg:w-[49px]">
-            </div>
-            <div class="boost-bar flex items-center justify-evenly bg-[#418BF8] w-[74%] h-full">
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-                <div
-                    class="segment w-[7.1px] h-[32px] md:w-[10px] md:h-[48px] lg:w-[15px] lg:h-[68px] bg-white rounded-md">
-                </div>
-            </div>
+            class="timer-ui hidden absolute w-[43px] h-[43px] md:w-[63px] md:h-[63px] lg:w-[84px] lg:h-[84px] rounded-full border-[3px] border-white z-200 bg-[#1B162A]">
+            <div id="ring" class="absolute inset-0 rounded-full z-201"></div>
+            <img src="/textures/Images/wrench-icon.png" id="timerIcon"
+                class="absolute top-1/2 left-1/2 w-[23px] h-[23px] md:w-[34px] md:h-[34px] lg:w-[48px] lg:h-[48px] -translate-x-1/2 -translate-y-1/2 z-202" />
         </div>
 
         <!-- coins ui gameplay -->
@@ -317,6 +292,61 @@
                         class="current-charge-text translate-y-[0.5px] md:translate-y-px text-[#3F3F3F] text-center font-[Koulen] font-normal text-[8.97px] md:text-[11.77px] lg:text-[16.77px] uppercase">
                         CURRENT CHARGE - 27
                     </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop screen -->
+        <div class="shop-screen w-full h-full bg-[#060D20] z-200 hidden items-center justify-center">
+            <div
+                class="shop-content relative w-[395px] h-[431px] md:w-[821px] md:h-[485px] lg:w-[889px] lg:h-[525px] bg-[#0E1A30] border-white border-[2.8px] md:border-[5px]">
+                <button
+                    class="shop-back-btn absolute top-0 left-0 bg-white w-[94px] h-[27px] md:w-[131px] md:h-[33px] lg:w-[164px] lg:h-[47px] flex items-center justify-evenly border border-[#FFFFFF]">
+                    <img src="/textures/Images/back-btn-img.png" alt="back-btn"
+                        class="w-[18px] h-[18px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px]">
+                    <div
+                        class="shop-back-btn-text font-[Koulen] text-[16.98px] md:text-[22.5px] lg:text-[29px] text-center font-normal">
+                        SHOP</div>
+                </button>
+
+                <div
+                    class="coupon-cards-wrapper absolute top-[53%] md:top-[55%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[90%] h-[80%] md:w-[95%] grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-x-2 md:gap-5 overflow-x-clip overflow-y-auto">
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
+                    <div
+                        class="coupon-card-container w-[112.5px] h-[108px] md:w-[181px] md:h-[173px] lg:w-[196px] lg:h-[188px] bg-[#1B162A] border-[0.58px] border-white rounded-[3.5px]">
+
+                    </div>
                 </div>
             </div>
         </div>

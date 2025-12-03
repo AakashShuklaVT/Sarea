@@ -4,9 +4,11 @@ import CoinsCollectScreen from "./CoinsCollectScreen.js"
 import CoinCounterUI from "./CoinsCounterUI.js"
 import LoadingScreen from "./LoadingScreen.js"
 import PauseScreen from "./PauseScreen.js"
-import SoftwareBoostTimer from "./SoftwareBoostTimer.js"
+import SoftwareBoostTimer from "./TimerUI.js"
 import StartCountdown from "./StartCountDown.js"
 import StartScreen from "./StartScreen.js"
+import TimerUI from "./TimerUI.js"
+import ValueMeterUI from "./ValueMeterUI.js"
 
 export default class UIManager {
     static instance = null
@@ -24,7 +26,8 @@ export default class UIManager {
 
     initUI() {
         this.chargingBar = new ChargingBar()
-        this.softwareBoostTimer = new SoftwareBoostTimer()
+        this.timerUI = new TimerUI()
+        this.valueMeterUI = new ValueMeterUI()
         this.coinCounterUI = new CoinCounterUI()
         this.startCountdown = new StartCountdown()
         this.loadingScreen = new LoadingScreen()
@@ -34,7 +37,7 @@ export default class UIManager {
     }
 
     update() {
-        if (this.softwareBoostTimer) this.softwareBoostTimer.update()
+        if (this.timerUI) this.timerUI.update()
         if (this.startCountdown) this.startCountdown.update()
     }
 }

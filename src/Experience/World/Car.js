@@ -34,6 +34,10 @@ export default class Car {
         this.chargeSaveTimerMax = GameConfig.timerConfig.maxTime
         this.chargeSaveAmount = 0
 
+        this.isRimProtectorActive = false
+        this.rimProtectorMaxDamage = GameConfig.rimProtectorConfig.rimProtectorMaxDamage
+        this.currentDamageDealt = 0
+
         this.isDead = false
         this.isLaneChanging = false
         this.elapsedTime = 0
@@ -43,11 +47,6 @@ export default class Car {
         this.audioManager = this.experience.audioManager
         this.setModel()
         this.registerEvents()
-    }
-
-    start() {
-        this.speed = GameConfig.car.speed
-        this.acceleration = GameConfig.car.acceleration
     }
 
     setModel() {
@@ -89,13 +88,32 @@ export default class Car {
         })
 
         this.eventEmitter.on('obstacleCollision', (eventData) => {
-            this.decreaseCharge(eventData.damage)
+            if (this.isRimProtectorActive) {
+
+                this.currentDamageDealt += eventData.damage
+
+                const remaining = this.rimProtectorMaxDamage - this.currentDamageDealt
+                this.eventEmitter.trigger("rimProtectorDamage", [remaining])
+
+                if (this.currentDamageDealt >= this.rimProtectorMaxDamage) {
+                    this.isRimProtectorActive = false
+                    this.currentDamageDealt = 0
+                }
+            }
+            else {
+                this.decreaseCharge(eventData.damage)
+            }
         })
 
         this.eventEmitter.on('chargeSavePickup', (reducedChargeDecreaseRate) => {
             this.reducedChargeDecreaseRate = reducedChargeDecreaseRate * 0.5
             this.ischargeSaveActive = true
             this.currentChargeSaveTime = 0
+        })
+
+        this.eventEmitter.on('rimProtectorPickup', () => {
+            this.isRimProtectorActive = true
+            this.currentDamageDealt = 0
         })
 
         this.eventEmitter.on('gameOver', () => this.gameOver())
