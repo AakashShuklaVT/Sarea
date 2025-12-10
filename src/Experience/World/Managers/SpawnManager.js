@@ -54,6 +54,9 @@ export default class SpawnManager {
         this.eventEmitter.on("chargeSavePickup", () => {
             this.isRareUnlocked = false
         })
+        this.eventEmitter.on("rimProtectorPickup", () => {
+            this.isRareUnlocked = false
+        })
     }
 
     registerManager(manager, type) {

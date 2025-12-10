@@ -6,6 +6,8 @@ import UIManager from '../UI/UIManager.js'
 
 export default class Car {
     constructor() {
+        console.log("Car constructor");
+
         this.experience = new Experience()
         this.eventEmitter = this.experience.eventEmitter
         this.audioManager = this.experience.audioManager
@@ -21,6 +23,8 @@ export default class Car {
         this.speed = GameConfig.car.speed
 
         this.acceleration = GameConfig.car.acceleration
+        this.deacceleration = GameConfig.car.deacceleration
+        this.deaccelerationThreshold = GameConfig.car.deaccelerationThreshold
         this.wheelRadius = GameConfig.car.wheelRadius
         this.maxSpeed = GameConfig.car.maxSpeed
         this.charge = GameConfig.car.startCharge
@@ -28,7 +32,6 @@ export default class Car {
         this.currentMaxCharge = GameConfig.car.currentMaxCharge
         this.maxCharge = GameConfig.car.maxCharge
         this.chargeDecreaseRate = GameConfig.car.chargeDecreaseRate
-
         this.ischargeSaveActive = false
         this.currentChargeSaveTime = 0
         this.chargeSaveTimerMax = GameConfig.timerConfig.maxTime
@@ -78,16 +81,16 @@ export default class Car {
     }
 
     registerEvents() {
-        this.eventEmitter.on('left', () => this.moveLeft())
-        this.eventEmitter.on('right', () => this.moveRight())
+        this.eventEmitter.on('left.car', () => this.moveLeft())
+        this.eventEmitter.on('right.car', () => this.moveRight())
 
-        this.eventEmitter.on('chargePickup', (eventData) => {
+        this.eventEmitter.on('chargePickup.car', (eventData) => {
             this.increaseCharge(eventData.chargeAmount)
             if (eventData.maxChargeReduction > 0)
                 this.decreaseMaxCharge(eventData.maxChargeReduction)
         })
 
-        this.eventEmitter.on('obstacleCollision', (eventData) => {
+        this.eventEmitter.on('obstacleCollision.car', (eventData) => {
             if (this.isRimProtectorActive) {
 
                 this.currentDamageDealt += eventData.damage
@@ -105,18 +108,18 @@ export default class Car {
             }
         })
 
-        this.eventEmitter.on('chargeSavePickup', (reducedChargeDecreaseRate) => {
+        this.eventEmitter.on('chargeSavePickup.car', (reducedChargeDecreaseRate) => {
             this.reducedChargeDecreaseRate = reducedChargeDecreaseRate * 0.5
             this.ischargeSaveActive = true
             this.currentChargeSaveTime = 0
         })
 
-        this.eventEmitter.on('rimProtectorPickup', () => {
+        this.eventEmitter.on('rimProtectorPickup.car', () => {
             this.isRimProtectorActive = true
             this.currentDamageDealt = 0
         })
 
-        this.eventEmitter.on('gameOver', () => this.gameOver())
+        this.eventEmitter.on('gameOver.car', () => this.gameOver())
     }
 
     decreaseCharge(amount) {
@@ -177,19 +180,40 @@ export default class Car {
 
     gameOver() {
         console.log('Game Over')
-        this.eventEmitter.off('left')
-        this.eventEmitter.off('right')
-        this.eventEmitter.off('chargePickup')
-        this.eventEmitter.off('obstacleCollision')
+        this.eventEmitter.off('left.car')
+        this.eventEmitter.off('right.car')
+        this.eventEmitter.off('chargePickup.car')
+        this.eventEmitter.off('obstacleCollision.car')
+        this.eventEmitter.off('chargeSavePickup.car')
+        this.eventEmitter.off('rimProtectorPickup.car')
+        this.eventEmitter.off('gameOver.car')
         this.isDead = true
+    }
+
+    dispose() {
+        this.eventEmitter.off('left.car')
+        this.eventEmitter.off('right.car')
+        this.eventEmitter.off('chargePickup.car')
+        this.eventEmitter.off('obstacleCollision.car')
+        this.eventEmitter.off('chargeSavePickup.car')
+        this.eventEmitter.off('rimProtectorPickup.car')
+        this.eventEmitter.off('gameOver.car')
     }
 
     update() {
         const delta = this.time.delta * 0.001
         this.elapsedTime += delta
 
-        if (this.speed < this.maxSpeed) {
-            this.speed += this.acceleration * delta
+        if (this.speed <= this.maxSpeed) {
+            this.minSpeed = 2
+            if (this.charge <= this.deaccelerationThreshold) {
+                if (this.speed - this.deacceleration * delta >= this.minSpeed) {
+                    this.speed -= this.deacceleration * delta
+                }
+            }
+            else {
+                this.speed += this.acceleration * delta
+            }
             if (this.speed > this.maxSpeed) {
                 this.speed = this.maxSpeed
                 console.log('max speed reached after seconds : ', this.elapsedTime);

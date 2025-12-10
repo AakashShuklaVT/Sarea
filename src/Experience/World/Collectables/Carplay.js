@@ -20,7 +20,6 @@ export default class Carplay {
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
         this.chargeDecreaseRate = GameConfig.carplayConfig.chargeDepletionValue
-        console.log('carplay');
     }
 
     setModel() {

@@ -15,7 +15,8 @@ export default class RimProtector {
         this.rotationSpeed = 0.03
         this.active = true
         this.yOffset = 0.3
-
+        this.isRare = true
+        
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
@@ -24,7 +25,7 @@ export default class RimProtector {
 
     setModel() {
         this.model = this.resource.scene.clone()
-        this.model.scale.set(3.9, 3.9, 3.9)
+        this.model.scale.set(2.3, 2.3, 2.3)
         this.model.position.copy(this.position)
         this.model.position.y = this.yOffset
         this.model.castShadow = true
@@ -36,7 +37,7 @@ export default class RimProtector {
         const bubbleClass = new Bubble(0.35)
         this.bubble = bubbleClass.create(
             this.position.x,
-            this.position.y + 0.6,
+            this.position.y + 0.45,
             this.position.z
         )
     }

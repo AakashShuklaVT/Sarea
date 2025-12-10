@@ -49,7 +49,7 @@ export default class World {
     }
 
     registerEvents() {
-        this.eventEmitter.on('gameOver', () => this.gameOver())
+        this.eventEmitter.on('gameOver.world', () => this.gameOver())
     }
 
     gameOver() {
@@ -78,15 +78,13 @@ export default class World {
             this.scene.remove(this.scene.children[0])
         }
 
-        // Explicitly remove event listeners to prevent duplicates
-        if (this.inputHandler) {
-            this.eventEmitter.off('left')
-            this.eventEmitter.off('right')
-            this.eventEmitter.off('chargePickup')
-            this.eventEmitter.off('obstacleCollision')
-            this.eventEmitter.off('softwareBoostPickup')
-            this.eventEmitter.off('gameOver')
-        }
+        this.eventEmitter.off('gameOver.world')
+        this.eventEmitter.off('left.car')
+        this.eventEmitter.off('right.car')
+        this.eventEmitter.off('chargePickup.car')
+        this.eventEmitter.off('obstacleCollision.car')
+        this.eventEmitter.off('chargeSavePickup.car')
+        this.eventEmitter.off('rimProtectorPickup.car')
 
         // Dispose and nullify all game objects
         const disposables = [

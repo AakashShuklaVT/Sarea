@@ -31,9 +31,6 @@ export default class TimerUI {
             else if (type === TYPES.SPOILER) {
                 this.image.src = '/textures/Images/spoiler-icon.png'
             }
-            else if (type === TYPES.RIM_PROTECTOR) {
-                this.image.src = '/textures/Images/rim-protector-icon.png'
-            }
             else if (type === TYPES.SHADES) {
                 this.image.src = '/textures/Images/shades-icon.png'
             }

@@ -4,11 +4,11 @@ import CoinsCollectScreen from "./CoinsCollectScreen.js"
 import CoinCounterUI from "./CoinsCounterUI.js"
 import LoadingScreen from "./LoadingScreen.js"
 import PauseScreen from "./PauseScreen.js"
-import SoftwareBoostTimer from "./TimerUI.js"
 import StartCountdown from "./StartCountDown.js"
 import StartScreen from "./StartScreen.js"
 import TimerUI from "./TimerUI.js"
 import ValueMeterUI from "./ValueMeterUI.js"
+import ShopScreen from "./ShopScreen.js"
 
 export default class UIManager {
     static instance = null
@@ -34,6 +34,7 @@ export default class UIManager {
         this.startScreen = new StartScreen()
         this.coinsCollectScreen = new CoinsCollectScreen(this.coinCounterUI)
         this.pauseScreen = new PauseScreen()
+        this.shopScreen = new ShopScreen()
     }
 
     update() {

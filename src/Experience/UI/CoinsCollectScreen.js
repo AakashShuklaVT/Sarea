@@ -17,16 +17,22 @@ export default class CoinsCollectScreen {
     }
 
     getUIElements() {
-        if (!this.coinsScreen) return
+        if (!this.coinsScreen) return;
 
-        this.homeButton = this.coinsScreen.querySelector(".home-btn-coins")
-        this.playAgainButton = this.coinsScreen.querySelector(".play-again-btn-coins")
-        this.pauseButton = document.querySelector('.pause-btn-gameplay')
-        this.coinsText = this.coinsScreen.querySelector(".coin-middle-lower-coin-text")
+        this.homeButton = this.coinsScreen.querySelector(".home-btn-coins");
+        this.playAgainButton = this.coinsScreen.querySelector(".play-again-btn-coins");
+        this.pauseButton = document.querySelector(".pause-btn-gameplay");
+        this.coinsText = this.coinsScreen.querySelector(".coin-middle-lower-coin-text");
+        this.cartButton = this.coinsScreen.querySelector(".cart-btn-coins-collect")
+        this.decisionScreen = document.querySelector(".shop-play-decision-screen");
+        this.shopBtnDecision = this.decisionScreen.querySelector(".shop-btn-decision");
+        this.playBtnDecision = this.decisionScreen.querySelector(".play-btn-decision");
+
+        this.confirmPopupScreen = document.querySelector(".confirm-popup-screen");
     }
 
     show() {
-        if (this.coinsScreen){
+        if (this.coinsScreen) {
             this.coinsScreen.style.display = "flex"
         }
     }
@@ -44,24 +50,49 @@ export default class CoinsCollectScreen {
 
     registerEvents() {
         this.eventEmitter.on("gameOver", () => {
-            this.setCoins(this.coinCounterUI.coins)
+            this.setCoins(this.coinCounterUI.coins);
             setTimeout(() => {
-                this.show()
-            }, 600)
+                this.show();
+            }, 600);
         });
 
         if (this.homeButton) {
             this.homeButton.addEventListener("click", () => {
-                this.hide()
-                this.eventEmitter.trigger("goHome")
+                this.hide();
+                this.eventEmitter.trigger("goHome");
             });
         }
 
         if (this.playAgainButton) {
             this.playAgainButton.addEventListener("click", () => {
-                this.hide()
-                this.eventEmitter.trigger("gameStart")
+                this.hide();
+                this.showDecisionScreen();
             });
         }
+
+        this.shopBtnDecision.addEventListener("click", () => {
+            this.hideDecisionScreen();
+            this.eventEmitter.trigger("goToShop");
+        });
+
+        this.playBtnDecision.addEventListener("click", () => {
+            this.hideDecisionScreen();
+            this.eventEmitter.trigger("gameStart");
+        });
+
+        if (this.cartButton) {
+            this.cartButton.addEventListener("click", () => {
+                this.eventEmitter.trigger("goToShop");
+                this.hide()
+            });
+        }
+    }
+
+    showDecisionScreen() {
+        this.decisionScreen.style.display = "flex";
+    }
+
+    hideDecisionScreen() {
+        this.decisionScreen.style.display = "none";
     }
 }

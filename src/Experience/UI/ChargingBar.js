@@ -11,6 +11,7 @@ export default class ChargingBar {
         this.maxCharge = GameConfig.car.maxCharge
         this.currentMaxCharge = GameConfig.car.currentMaxCharge
         this.currentCharge = GameConfig.car.startCharge
+        this.originalChargeDecreaseRate = GameConfig.car.chargeDecreaseRate
 
         this.getUIElements()
         this.registerEvents()
@@ -27,11 +28,16 @@ export default class ChargingBar {
         this.currentMaxText = this.container.querySelector('.current-max-text')
         this.currentMaxMask = this.container.querySelector('.current-max-mask')
 
+        this.hudUI = this.container.querySelector('.item-collect-ui-display')
+        this.hudLeft = this.container.querySelector('.item-collected-left')
+        this.hudRight = this.container.querySelector('.item-collected-right')
+
         this.hide()
     }
 
     registerEvents() {
         this.eventEmitter.on('gameStart', () => {
+            this.hudUI.style.display = 'none'
             this.show()
         })
         this.eventEmitter.on('goHome', () => {
@@ -40,6 +46,29 @@ export default class ChargingBar {
         this.eventEmitter.on('gameOver', () => {
             this.hide()
         })
+
+        this.eventEmitter.on("chargeSavePickup", (chargeDecreaseRate, type) => {
+            this.hudUI.style.display = "flex";
+
+            const oldRate = this.originalChargeDecreaseRate;
+            const newRate = chargeDecreaseRate;
+            const reduction = ((oldRate - newRate) / oldRate) * 100;
+
+            this.hudLeft.textContent = `Equipped - ${type}`;
+            this.hudRight.textContent = `-      ${reduction.toFixed(1)}% efficiency`;
+        });
+
+
+        this.eventEmitter.on("rimProtectorPickup", () => {
+            this.hudUI.style.display = "flex";
+
+            this.hudLeft.textContent = "Equipped - Rim Protector";
+            this.hudRight.textContent = "-    Efficiency - 50 Damage";
+        });
+
+        this.eventEmitter.on('rareItemTimerEnd', () => {
+            this.hudUI.style.display = 'none'
+        })
     }
 
     setInitialCharge(maxCharge, currentCharge) {
@@ -47,7 +76,7 @@ export default class ChargingBar {
         this.currentCharge = currentCharge
         this.updateChargingBar()
     }
-    
+
     show() {
         if (this.container)
             this.container.style.display = 'flex'
@@ -70,21 +99,8 @@ export default class ChargingBar {
         const maxVal = Math.round(this.currentMaxCharge)
         const diffVal = Math.round(this.currentMaxCharge - this.currentCharge)
 
-        if (chargeVal < 2) {
-            this.currentChargeText.textContent = ""
-        } else if (chargeVal < 30) {
-            this.currentChargeText.textContent = `${chargeVal}`
-        } else {
-            this.currentChargeText.textContent = `Current Charge - ${chargeVal}`
-        }
-
-        if (diffVal < 4) {
-            this.currentMaxText.textContent = ""
-        } else if (diffVal < 70) {
-            this.currentMaxText.textContent = `${maxVal}`
-        } else {
-            this.currentMaxText.textContent = `Current Maximum Capacity - ${maxVal}`
-        }
+        this.currentChargeText.textContent = `${chargeVal}`
+        this.currentMaxText.textContent = `${maxVal}`
 
         let midPointPercent = this.currentCharge + diffVal / 2
         this.currentMaxText.style.position = "absolute"

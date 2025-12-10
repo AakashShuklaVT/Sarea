@@ -18,9 +18,9 @@ export default class StartScreen {
     }
 
     initCoins() {
-        const storedCoins = localStorage.getItem("totalCoins");
+        const storedCoins = sessionStorage.getItem("totalCoins");
+        sessionStorage.setItem("totalCoins", "0");
         if (storedCoins === null) {
-            localStorage.setItem("totalCoins", "0");
             this.totalCoins = 0;
             this.newPlayer = true;
         }
@@ -30,8 +30,11 @@ export default class StartScreen {
     }
 
     updateCoinsDisplay() {
-        if (this.coinsUIText)
+        const storedCoins = sessionStorage.getItem("totalCoins");
+        this.totalCoins = parseInt(storedCoins, 10);
+        if (this.coinsUIText) {
             this.coinsUIText.textContent = this.totalCoins;
+        }
     }
 
     getUIElements() {
@@ -54,8 +57,10 @@ export default class StartScreen {
     }
 
     show() {
-        if (this.startScreen)
+        if (this.startScreen) {
             this.startScreen.style.display = "flex";
+            this.updateCoinsDisplay()
+        }
     }
 
     hide() {
@@ -79,7 +84,16 @@ export default class StartScreen {
         });
 
         this.eventEmitter.on("goHome", () => {
+            this.totalCoins = 0
+            sessionStorage.setItem("totalCoins", this.totalCoins.toString());
+            this.updateCoinsDisplay();
             this.show();
+        });
+
+        this.eventEmitter.on("gameStart", () => {
+            this.totalCoins = 0
+            sessionStorage.setItem("totalCoins", this.totalCoins.toString());
+            this.updateCoinsDisplay();
         });
 
         this.eventEmitter.on("gameOver", () => {
@@ -88,15 +102,11 @@ export default class StartScreen {
 
         this.eventEmitter.on("updateTotalCoins", (coins) => {
             this.totalCoins += coins;
-            localStorage.setItem("totalCoins", this.totalCoins.toString());
+            sessionStorage.setItem("totalCoins", this.totalCoins.toString());
             this.updateCoinsDisplay();
         });
 
         if (this.startButton) {
-            this.startButton.addEventListener("click", () => {
-                this.hide();
-                this.eventEmitter.trigger("gameStart");
-            });
             this.startButton.addEventListener("click", () => {
                 this.hide();
                 this.eventEmitter.trigger("gameStart");
@@ -106,6 +116,13 @@ export default class StartScreen {
         if (this.backBtnCouponScreen) {
             this.backBtnCouponScreen.addEventListener("click", () => {
                 this.hideCouponScreen();
+            });
+        }
+
+        if (this.cartButton) {
+            this.cartButton.addEventListener("click", () => {
+                this.hide();
+                this.eventEmitter.trigger("goToShop");
             });
         }
     }

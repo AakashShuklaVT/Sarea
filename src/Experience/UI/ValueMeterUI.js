@@ -28,7 +28,6 @@ export default class ValueMeterUI {
             this.setValue(this.maxValue)
         })
         this.eventEmitter.on("rimProtectorDamage", (value) => {
-            console.log(value);
             this.setValue(value)
         })
 
@@ -51,8 +50,10 @@ export default class ValueMeterUI {
         this.current = Math.max(0, Math.min(this.maxValue, v))
         this._updateVisual()
 
-        if (this.current === 0)
+        if (this.current <= 0) {
             this.eventEmitter.trigger("rareItemTimerEnd")
+            this.hide()
+        }
     }
 
     show() {
@@ -67,8 +68,6 @@ export default class ValueMeterUI {
 
     _updateVisual() {
         if (!this.ring) return
-        console.log(this.current, this.maxValue, 'updating value');
-        
         const pct = this.current / this.maxValue
         const angle = pct * 360
 

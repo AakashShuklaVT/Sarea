@@ -51,7 +51,7 @@ export default class FastCharger {
 
     update() {
         if (this.active) {
-            this.model.rotation.y += this.rotationSpeed
+            
         }
     }
 

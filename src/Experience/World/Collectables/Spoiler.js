@@ -40,7 +40,7 @@ export default class Spoiler {
         const bubbleClass = new Bubble(0.35)
         this.bubble = bubbleClass.create(
             this.position.x,
-            this.position.y + 0.6,
+            this.position.y + 0.4,
             this.position.z
         )
     }

@@ -48,7 +48,7 @@ export default class SlowCharger {
 
     update() {
         if (this.active) {
-            this.model.rotation.y += this.rotationSpeed
+            
         }
     }
 

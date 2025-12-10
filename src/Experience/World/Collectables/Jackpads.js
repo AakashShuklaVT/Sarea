@@ -20,7 +20,6 @@ export default class Jackpads {
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
         this.chargeDecreaseRate = GameConfig.jackpadsConfig.chargeDepletionValue
-        console.log('jackpads');
     }
 
     setModel() {

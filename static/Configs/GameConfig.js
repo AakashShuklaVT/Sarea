@@ -27,6 +27,8 @@ export default {
     car: {
         speed: 12.9,
         acceleration: 0.12,
+        deacceleration: 5,
+        deaccelerationThreshold: 3,
         maxSpeed: 25,
         wheelRadius: 0.2,
         scale: 0.065,
@@ -34,7 +36,7 @@ export default {
         currentMaxCharge: 100,
         maxCharge: 100,
         minBatteryHealth: 60,
-        chargeDecreaseRate: 1.5,
+        chargeDecreaseRate: 4,
     },
 
     spawnValues: {
@@ -55,41 +57,39 @@ export default {
 
     collectableSpawnRates: {
         easy: {
-            fastCharger: 48,
-            slowCharger: 48,
+            fastCharger: 32,
+            slowCharger: 32,
             softwareBoost: 6,
-            spoiler: 60,
-            rimProtector: 60,
-            shades: 60,
-            jackpads: 60,
-            carplay: 60,
-            wheelcap: 60,
+            spoiler: 6,
+            rimProtector: 6,
+            shades: 6,
+            jackpads: 6,
+            carplay: 6,
+            wheelcap: 6,
         },
 
         medium: {
-            fastCharger: 48,
-            slowCharger: 48,
+            fastCharger: 32,
+            slowCharger: 32,
             softwareBoost: 6,
-
-            spoiler: 60,
-            rimProtector: 60,
-            shades: 60,
-            jackpads: 60,
-            carplay: 60,
-            wheelcap: 60,
+            spoiler: 6,
+            rimProtector: 6,
+            shades: 6,
+            jackpads: 6,
+            carplay: 6,
+            wheelcap: 6,
         },
 
         hard: {
-            fastCharger: 48,
-            slowCharger: 48,
+            fastCharger: 32,
+            slowCharger: 32,
             softwareBoost: 6,
-
             spoiler: 6,
-            rimProtector: 60,
-            shades: 60,
-            jackpads: 60,
-            carplay: 60,
-            wheelcap: 60,
+            rimProtector: 6,
+            shades: 6,
+            jackpads: 6,
+            carplay: 6,
+            wheelcap: 6,
         },
     },
 
@@ -130,7 +130,7 @@ export default {
     },
 
     timerConfig: {
-        maxTime: 15,
+        maxTime: 7,
     },
 
     softwareBoostConfig: {
@@ -138,26 +138,26 @@ export default {
     },
 
     carplayConfig: {
-        chargeDepletionValue: 1.425,   // 5% reduction
+        chargeDepletionValue: 1.254,
     },
 
     jackpadsConfig: {
-        chargeDepletionValue: 1.425,   // 5% reduction
+        chargeDepletionValue: 1.311,
     },
 
     spoilerConfig: {
-        chargeDepletionValue: 1.35,     // 10% reduction
+        chargeDepletionValue: 1.161,
     },
 
     shadesConfig: {
-        chargeDepletionValue: 0.75,    // 50% reduction
+        chargeDepletionValue: 0.525,
     },
 
     wheelcapConfig: {
-        chargeDepletionValue: 1.35,    // 10% reduction
+        chargeDepletionValue: 1.215,
     },
 
     rimProtectorConfig: {
-        rimProtectorMaxDamage: 50,    
+        rimProtectorMaxDamage: 50,
     },
 };
