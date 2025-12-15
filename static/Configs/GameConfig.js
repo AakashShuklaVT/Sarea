@@ -50,9 +50,9 @@ export default {
     },
 
     phaseConfig: {
-        easy: { duration: 30, totalEntities: 150, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
-        medium: { duration: 30, totalEntities: 155, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
-        hard: { duration: Infinity, totalEntities: 160, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
+        easy: { duration: 30, totalEntities: 155, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
+        medium: { duration: 30, totalEntities: 165, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
+        hard: { duration: Infinity, totalEntities: 170, obstaclePatternPercentage: 50, collectablePatternPercentage: 50 },
     },
 
     collectableSpawnRates: {
