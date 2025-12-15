@@ -1,5 +1,6 @@
 import GameConfig from "../../../static/Configs/GameConfig"
 import Experience from "../Experience"
+import Events from "../../../static/Configs/Events.js"
 
 const TYPES = {
     SOFTWARE_BOOST: "softwareBoost",
@@ -24,7 +25,7 @@ export default class TimerUI {
         this.getUIElements()
         this.hide()
 
-        this.eventEmitter.on("chargeSavePickup", (chargeDecreaseRate, type) => {
+        this.eventEmitter.on(Events.ChargeSavePickup, (chargeDecreaseRate, type) => {
             if (type === TYPES.WHEELCAP) {
                 this.image.src = '/textures/Images/wheelcap-icon.png'
             }
@@ -46,12 +47,12 @@ export default class TimerUI {
             this.start()
         })
 
-        this.eventEmitter.on("gameOver", () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.hide()
             this.running = false
         })
 
-        this.eventEmitter.on("goHome", () => {
+        this.eventEmitter.on(Events.GoHome, () => {
             this.hide()
             this.running = false
         })
@@ -80,7 +81,7 @@ export default class TimerUI {
             this.running = false
             this._updateVisual()
             this.hide()
-            this.eventEmitter.trigger("rareItemTimerEnd")
+            this.eventEmitter.trigger(Events.RareItemTimerEnd)
             return
         }
         this._updateVisual()

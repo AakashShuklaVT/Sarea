@@ -1,4 +1,5 @@
 import Experience from "../Experience";
+import Events from "../../../static/Configs/Events";
 
 export default class LoadingScreen {
     constructor() {
@@ -29,7 +30,7 @@ export default class LoadingScreen {
     }
 
     registerEvents() {
-        this.eventEmitter.on("assetLoad", (loaded, total) => {
+        this.eventEmitter.on(Events.AssetLoad, (loaded, total) => {
             this.setProgress(loaded, total)
         })
     }
@@ -46,7 +47,7 @@ export default class LoadingScreen {
         if (percentage >= 100) {
             setTimeout(() => {
                 this.hide();
-                this.eventEmitter.trigger("loadingCompleted")
+                this.eventEmitter.trigger(Events.LoadingCompleted)
                 this.onLoadingComplete()
             }, 1000);
         }

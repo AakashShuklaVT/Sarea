@@ -1,4 +1,5 @@
 import Experience from "../Experience"
+import Events from "../../../static/Configs/Events.js"
 
 export default class StartCountdown {
     constructor() {
@@ -13,7 +14,7 @@ export default class StartCountdown {
         this.createHTML()
         this.hide()
 
-        this.eventEmitter.on("gameStart", () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.start()
         })
     }
@@ -65,7 +66,7 @@ export default class StartCountdown {
     stop() {
         this.running = false
         this.hide()
-        this.eventEmitter.trigger("countdownComplete")
+        this.eventEmitter.trigger(Events.CountdownComplete)
     }
 
     show() {

@@ -1,5 +1,6 @@
 import GameConfig from "../../../static/Configs/GameConfig"
 import Experience from "../Experience"
+import Events from "../../../static/Configs/Events.js"
 
 const TYPES = {
     SOFTWARE_BOOST: "softwareBoost",
@@ -22,17 +23,17 @@ export default class ValueMeterUI {
         this.getUIElements()
         this.hide()
 
-        this.eventEmitter.on("rimProtectorPickup", () => {
+        this.eventEmitter.on(Events.RimProtectorPickup, () => {
             this.show()
             this.image.src = '/textures/Images/rim-protector-icon.png'
             this.setValue(this.maxValue)
         })
-        this.eventEmitter.on("rimProtectorDamage", (value) => {
+        this.eventEmitter.on(Events.RimProtectorDamage, (value) => {
             this.setValue(value)
         })
 
-        this.eventEmitter.on("gameOver", () => this.hide())
-        this.eventEmitter.on("goHome", () => this.hide())
+        this.eventEmitter.on(Events.GameOver, () => this.hide())
+        this.eventEmitter.on(Events.GoHome, () => this.hide())
     }
 
     getUIElements() {
@@ -51,7 +52,7 @@ export default class ValueMeterUI {
         this._updateVisual()
 
         if (this.current <= 0) {
-            this.eventEmitter.trigger("rareItemTimerEnd")
+            this.eventEmitter.trigger(Events.RareItemTimerEnd)
             this.hide()
         }
     }

@@ -1,4 +1,5 @@
 import Experience from "../Experience";
+import Events from "../../../static/Configs/Events.js";
 
 export default class StartScreen {
     constructor() {
@@ -79,28 +80,28 @@ export default class StartScreen {
     }
 
     registerEvents() {
-        this.eventEmitter.on("loadingCompleted", () => {
+        this.eventEmitter.on(Events.LoadingCompleted, () => {
             this.show();
         });
 
-        this.eventEmitter.on("goHome", () => {
+        this.eventEmitter.on(Events.GoHome, () => {
             this.totalCoins = 0
             sessionStorage.setItem("totalCoins", this.totalCoins.toString());
             this.updateCoinsDisplay();
             this.show();
         });
 
-        this.eventEmitter.on("gameStart", () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.totalCoins = 0
             sessionStorage.setItem("totalCoins", this.totalCoins.toString());
             this.updateCoinsDisplay();
         });
 
-        this.eventEmitter.on("gameOver", () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.tryShowCouponScreen();
         });
 
-        this.eventEmitter.on("updateTotalCoins", (coins) => {
+        this.eventEmitter.on(Events.UpdateTotalCoins, (coins) => {
             this.totalCoins += coins;
             sessionStorage.setItem("totalCoins", this.totalCoins.toString());
             this.updateCoinsDisplay();
@@ -109,7 +110,7 @@ export default class StartScreen {
         if (this.startButton) {
             this.startButton.addEventListener("click", () => {
                 this.hide();
-                this.eventEmitter.trigger("gameStart");
+                this.eventEmitter.trigger(Events.GameStart);
             });
         }
 
@@ -122,7 +123,7 @@ export default class StartScreen {
         if (this.cartButton) {
             this.cartButton.addEventListener("click", () => {
                 this.hide();
-                this.eventEmitter.trigger("goToShop");
+                this.eventEmitter.trigger(Events.GoToShop);
             });
         }
     }

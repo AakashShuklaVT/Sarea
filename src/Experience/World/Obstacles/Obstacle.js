@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class Obstacle {
     constructor(model, type) {
@@ -28,7 +29,7 @@ export default class Obstacle {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('obstacleCollision', [{
+        this.experience.eventEmitter.trigger(Events.ObstacleCollision, [{
             damage: this.damage
         }])
         this.playAudio()

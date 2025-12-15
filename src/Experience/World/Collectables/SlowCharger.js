@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
 import Bubble from '../../Utils/Bubble.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class SlowCharger {
     constructor(position) {
@@ -36,7 +37,7 @@ export default class SlowCharger {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargePickup', [{
+        this.experience.eventEmitter.trigger(Events.ChargePickup, [{
             chargeAmount: this.batteryRecoveryAmount,
             maxChargeReduction: 0
         }])

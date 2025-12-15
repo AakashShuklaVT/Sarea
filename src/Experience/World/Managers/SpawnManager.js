@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import GameConfig from "../../../../static/Configs/GameConfig";
 import Experience from "../../Experience";
+import Events from "../../../../static/Configs/Events.js";
 
 const TYPES = GameConfig.types;
 
@@ -48,13 +49,13 @@ export default class SpawnManager {
             { type: TYPES.COLLECTABLE.COIN, laneIndex },
         ];
 
-        this.eventEmitter.on("rareItemTimerEnd", () => {
+        this.eventEmitter.on(Events.RareItemTimerEnd, () => {
             this.isRareUnlocked = true
         })
-        this.eventEmitter.on("chargeSavePickup", () => {
+        this.eventEmitter.on(Events.ChargeSavePickup, () => {
             this.isRareUnlocked = false
         })
-        this.eventEmitter.on("rimProtectorPickup", () => {
+        this.eventEmitter.on(Events.RimProtectorPickup, () => {
             this.isRareUnlocked = false
         })
     }

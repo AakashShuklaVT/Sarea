@@ -8,6 +8,7 @@ import CollectableFactory from './Collectables/CollectableFactory.js'
 import CollectableManager from './Managers/CollectableManager.js'
 import ObstacleFactory from './Obstacles/ObstacleFactory.js'
 import SpawnManager from './Managers/SpawnManager.js'
+import Events from '../../../static/Configs/Events.js'
 
 export default class World {
     constructor() {
@@ -19,7 +20,7 @@ export default class World {
 
         this.isGameOver = false
 
-        this.eventEmitter.on('gameStart', () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.experience.isPaused = false
             this.clearWorld()
             this.initWorld()
@@ -49,7 +50,7 @@ export default class World {
     }
 
     registerEvents() {
-        this.eventEmitter.on('gameOver.world', () => this.gameOver())
+        this.eventEmitter.on(Events.GameOver + '.world', () => this.gameOver())
     }
 
     gameOver() {
@@ -78,13 +79,13 @@ export default class World {
             this.scene.remove(this.scene.children[0])
         }
 
-        this.eventEmitter.off('gameOver.world')
-        this.eventEmitter.off('left.car')
-        this.eventEmitter.off('right.car')
-        this.eventEmitter.off('chargePickup.car')
-        this.eventEmitter.off('obstacleCollision.car')
-        this.eventEmitter.off('chargeSavePickup.car')
-        this.eventEmitter.off('rimProtectorPickup.car')
+        this.eventEmitter.off(Events.GameOver + '.world')
+        this.eventEmitter.off(Events.Left + '.car')
+        this.eventEmitter.off(Events.Right + '.car')
+        this.eventEmitter.off(Events.ChargePickup + '.car')
+        this.eventEmitter.off(Events.ObstacleCollision + '.car')
+        this.eventEmitter.off(Events.ChargeSavePickup + '.car')
+        this.eventEmitter.off(Events.RimProtectorPickup + '.car')
 
         // Dispose and nullify all game objects
         const disposables = [

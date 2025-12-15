@@ -1,5 +1,6 @@
 import Experience from "../Experience";
 import { COUPON_DATA_SHOP } from "../../../static/Configs/CouponsConfig";
+import Events from "../../../static/Configs/Events.js";
 
 export default class ShopScreen {
     constructor() {
@@ -41,7 +42,7 @@ export default class ShopScreen {
     }
 
     registerEvents() {
-        this.eventEmitter.on("goToShop", () => {
+        this.eventEmitter.on(Events.GoToShop, () => {
             this.show();
             this.updateCoinsDisplay();
             this.updateCouponButtons();
@@ -50,7 +51,7 @@ export default class ShopScreen {
 
         this.backBtn.addEventListener("click", () => {
             this.hide();
-            this.eventEmitter.trigger("goHome");
+            this.eventEmitter.trigger(Events.GoHome);
         });
 
         this.cancelBtn.addEventListener("click", () => {

@@ -43,7 +43,11 @@
 
 * {
     margin: 0;
-    /* padding: 0; */
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     box-sizing: border-box;
 }
 
@@ -91,6 +95,11 @@ button {
         height: 28px;
     }
 
+    .current-max-text,
+    .current-charge-text {
+        font-size: 14.5px;
+    }
+
     .start-coupon-screen {
         width: 325px;
     }
@@ -123,7 +132,7 @@ button {
     }
 
     .discount-percent-text {
-        font-size: 9px;
+        font-size: 12px;
     }
 
     .coupon-buy-btn {

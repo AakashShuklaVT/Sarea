@@ -1,4 +1,5 @@
 import Experience from "../Experience.js"
+import Events from "../../../static/Configs/Events.js"
 
 export default class InputHandler {
     constructor() {
@@ -15,10 +16,10 @@ export default class InputHandler {
         window.addEventListener("keydown", (e) => {
             switch (e.code) {
                 case "ArrowLeft":
-                    this.eventEmitter.trigger("left"); 
+                    this.eventEmitter.trigger(Events.Left); 
                     break
                 case "ArrowRight":
-                    this.eventEmitter.trigger("right");
+                    this.eventEmitter.trigger(Events.Right);
                     break
             }
         })
@@ -41,9 +42,9 @@ export default class InputHandler {
         
         if (Math.abs(diffX) > this.threshold) {
             if (diffX > 0) {
-                this.eventEmitter.trigger("right")
+                this.eventEmitter.trigger(Events.Right)
             } else {
-                this.eventEmitter.trigger("left")
+                this.eventEmitter.trigger(Events.Left)
             }
         }
     }

@@ -1,4 +1,5 @@
 import Experience from "../Experience"
+import Events from "../../../static/Configs/Events.js"
 
 export default class CoinCounterUI {
     constructor() {
@@ -12,16 +13,16 @@ export default class CoinCounterUI {
     }
 
     registerEvents() {
-        this.eventEmitter.on("coinCollected", () => {
+        this.eventEmitter.on(Events.CoinCollected, () => {
             this.increment()
         })
-        this.eventEmitter.on("gameStart", () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.onStart()
         })
-        this.eventEmitter.on("gameOver", () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.onGameOver()
         })
-        this.eventEmitter.on("goHome", () => {
+        this.eventEmitter.on(Events.GoHome, () => {
             this.hide()
         })
     }
@@ -40,7 +41,7 @@ export default class CoinCounterUI {
 
     onGameOver() {
         this.hide()
-        this.eventEmitter.trigger("updateTotalCoins", [this.coins])
+        this.eventEmitter.trigger(Events.UpdateTotalCoins, [this.coins])
     }
 
     increment() {

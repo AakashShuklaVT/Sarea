@@ -11,8 +11,6 @@ export default class CollectableManager {
     spawnEntity(x, z) {
         const type = this.collectableTypes[Math.floor(Math.random() * this.collectableTypes.length)]
         const collectable = this.factory.create(type, new THREE.Vector3(x, 0, z))
-        console.log(1);
-        
         return collectable
     }
 }

@@ -1,4 +1,5 @@
 import Experience from "../Experience";
+import Events from "../../../static/Configs/Events.js";
 
 export default class CoinsCollectScreen {
     constructor(coinCounterUI) {
@@ -49,7 +50,7 @@ export default class CoinsCollectScreen {
     }
 
     registerEvents() {
-        this.eventEmitter.on("gameOver", () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.setCoins(this.coinCounterUI.coins);
             setTimeout(() => {
                 this.show();
@@ -59,7 +60,7 @@ export default class CoinsCollectScreen {
         if (this.homeButton) {
             this.homeButton.addEventListener("click", () => {
                 this.hide();
-                this.eventEmitter.trigger("goHome");
+                this.eventEmitter.trigger(Events.GoHome);
             });
         }
 
@@ -72,17 +73,17 @@ export default class CoinsCollectScreen {
 
         this.shopBtnDecision.addEventListener("click", () => {
             this.hideDecisionScreen();
-            this.eventEmitter.trigger("goToShop");
+            this.eventEmitter.trigger(Events.GoToShop);
         });
 
         this.playBtnDecision.addEventListener("click", () => {
             this.hideDecisionScreen();
-            this.eventEmitter.trigger("gameStart");
+            this.eventEmitter.trigger(Events.GameStart);
         });
 
         if (this.cartButton) {
             this.cartButton.addEventListener("click", () => {
-                this.eventEmitter.trigger("goToShop");
+                this.eventEmitter.trigger(Events.GoToShop);
                 this.hide()
             });
         }

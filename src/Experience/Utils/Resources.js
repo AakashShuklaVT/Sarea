@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
+import Events from '../../../static/Configs/Events.js'
 
 export default class Resources {
     constructor(sources, eventEmitter) {
@@ -55,13 +56,13 @@ export default class Resources {
         this.items[source.name] = file
         this.loaded++
 
-        this.eventEmitter.trigger('assetLoad', [
+        this.eventEmitter.trigger(Events.AssetLoad, [
             this.loaded,
             this.toLoad,
         ])
 
         if (this.loaded === this.toLoad) {
-            this.eventEmitter.trigger('ready')
+            this.eventEmitter.trigger(Events.Ready)
         }
     }
 }

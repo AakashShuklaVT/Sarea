@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class Shades {
     constructor(position) {
@@ -20,7 +21,6 @@ export default class Shades {
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
         this.chargeDecreaseRate = GameConfig.shadesConfig.chargeDepletionValue
-        console.log('shades');
     }
 
     setModel() {
@@ -43,15 +43,11 @@ export default class Shades {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
+        this.experience.eventEmitter.trigger(Events.ChargeSavePickup, [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false
         this.active = false
-    }
-
-    update() {
-    
     }
 
     playAudio() {

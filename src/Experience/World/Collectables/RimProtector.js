@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class RimProtector {
     constructor(position) {
@@ -20,7 +21,6 @@ export default class RimProtector {
         this.setModel()
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
-        console.log('spawned');
     }
 
     setModel() {
@@ -43,7 +43,7 @@ export default class RimProtector {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('rimProtectorPickup')
+        this.experience.eventEmitter.trigger(Events.RimProtectorPickup)
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

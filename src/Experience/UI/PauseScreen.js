@@ -1,4 +1,5 @@
 import Experience from "../Experience"
+import Events from "../../../static/Configs/Events.js"
 
 export default class PauseScreen {
     constructor() {
@@ -22,7 +23,7 @@ export default class PauseScreen {
             this.resumeButton.addEventListener("click", () => {
                 this.experience.isPaused = false
                 this.hide()
-                this.eventEmitter.trigger("resumeGame")
+                this.eventEmitter.trigger(Events.ResumeGame)
             })
         }
 
@@ -30,7 +31,7 @@ export default class PauseScreen {
             this.homeButton.addEventListener("click", () => {
                 this.experience.isPaused = true
                 this.hide()
-                this.eventEmitter.trigger("goHome")
+                this.eventEmitter.trigger(Events.GoHome)
             })
         }
 
@@ -40,24 +41,24 @@ export default class PauseScreen {
 
                 if (this.experience.isPaused) {
                     this.show()
-                    this.eventEmitter.trigger("gamePaused")
+                    this.eventEmitter.trigger(Events.GamePaused)
                 }
             })
         }
     }
 
     registerEvents() {
-        this.eventEmitter.on("gameStart", () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.hide()
             this.showPauseButton()
         })
         
-        this.eventEmitter.on("gameOver", () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.hide()
             this.hidePauseButton()
         })
         
-        this.eventEmitter.on("pauseToggled", (isPaused) => {
+        this.eventEmitter.on(Events.PauseToggled, (isPaused) => {
             this.isPaused = isPaused
             if (isPaused) this.show()
             else this.hide()

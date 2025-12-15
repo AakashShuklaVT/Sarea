@@ -3,11 +3,10 @@ import gsap from 'gsap'
 import Experience from '../Experience.js'
 import GameConfig from '../../../static/Configs/GameConfig.js'
 import UIManager from '../UI/UIManager.js'
+import Events from '../../../static/Configs/Events.js'
 
 export default class Car {
     constructor() {
-        console.log("Car constructor");
-
         this.experience = new Experience()
         this.eventEmitter = this.experience.eventEmitter
         this.audioManager = this.experience.audioManager
@@ -81,22 +80,20 @@ export default class Car {
     }
 
     registerEvents() {
-        this.eventEmitter.on('left.car', () => this.moveLeft())
-        this.eventEmitter.on('right.car', () => this.moveRight())
+        this.eventEmitter.on(Events.Left + '.car', () => this.moveLeft())
+        this.eventEmitter.on(Events.Right + '.car', () => this.moveRight())
 
-        this.eventEmitter.on('chargePickup.car', (eventData) => {
+        this.eventEmitter.on(Events.ChargePickup + '.car', (eventData) => {
             this.increaseCharge(eventData.chargeAmount)
             if (eventData.maxChargeReduction > 0)
                 this.decreaseMaxCharge(eventData.maxChargeReduction)
         })
 
-        this.eventEmitter.on('obstacleCollision.car', (eventData) => {
+        this.eventEmitter.on(Events.ObstacleCollision + '.car', (eventData) => {
             if (this.isRimProtectorActive) {
-
                 this.currentDamageDealt += eventData.damage
-
                 const remaining = this.rimProtectorMaxDamage - this.currentDamageDealt
-                this.eventEmitter.trigger("rimProtectorDamage", [remaining])
+                this.eventEmitter.trigger(Events.RimProtectorDamage, [remaining])
 
                 if (this.currentDamageDealt >= this.rimProtectorMaxDamage) {
                     this.isRimProtectorActive = false
@@ -108,25 +105,25 @@ export default class Car {
             }
         })
 
-        this.eventEmitter.on('chargeSavePickup.car', (reducedChargeDecreaseRate) => {
+        this.eventEmitter.on(Events.ChargeSavePickup + '.car', (reducedChargeDecreaseRate) => {
             this.reducedChargeDecreaseRate = reducedChargeDecreaseRate * 0.5
             this.ischargeSaveActive = true
             this.currentChargeSaveTime = 0
         })
 
-        this.eventEmitter.on('rimProtectorPickup.car', () => {
+        this.eventEmitter.on(Events.RimProtectorPickup + '.car', () => {
             this.isRimProtectorActive = true
             this.currentDamageDealt = 0
         })
 
-        this.eventEmitter.on('gameOver.car', () => this.gameOver())
+        this.eventEmitter.on(Events.GameOver + '.car', () => this.gameOver())
     }
 
     decreaseCharge(amount) {
         this.charge = Math.max(0, this.charge - amount)
         this.chargingBar.updateCharge(this.charge)
         if (this.charge <= 0 && !this.isDead) {
-            this.eventEmitter.trigger('gameOver')
+            this.eventEmitter.trigger(Events.GameOver)
         }
     }
 
@@ -179,25 +176,24 @@ export default class Car {
     }
 
     gameOver() {
-        console.log('Game Over')
-        this.eventEmitter.off('left.car')
-        this.eventEmitter.off('right.car')
-        this.eventEmitter.off('chargePickup.car')
-        this.eventEmitter.off('obstacleCollision.car')
-        this.eventEmitter.off('chargeSavePickup.car')
-        this.eventEmitter.off('rimProtectorPickup.car')
-        this.eventEmitter.off('gameOver.car')
+        this.eventEmitter.off(Events.Left + '.car')
+        this.eventEmitter.off(Events.Right + '.car')
+        this.eventEmitter.off(Events.ChargePickup + '.car')
+        this.eventEmitter.off(Events.ObstacleCollision + '.car')
+        this.eventEmitter.off(Events.ChargeSavePickup + '.car')
+        this.eventEmitter.off(Events.RimProtectorPickup + '.car')
+        this.eventEmitter.off(Events.GameOver + '.car')
         this.isDead = true
     }
 
     dispose() {
-        this.eventEmitter.off('left.car')
-        this.eventEmitter.off('right.car')
-        this.eventEmitter.off('chargePickup.car')
-        this.eventEmitter.off('obstacleCollision.car')
-        this.eventEmitter.off('chargeSavePickup.car')
-        this.eventEmitter.off('rimProtectorPickup.car')
-        this.eventEmitter.off('gameOver.car')
+        this.eventEmitter.off(Events.Left + '.car')
+        this.eventEmitter.off(Events.Right + '.car')
+        this.eventEmitter.off(Events.ChargePickup + '.car')
+        this.eventEmitter.off(Events.ObstacleCollision + '.car')
+        this.eventEmitter.off(Events.ChargeSavePickup + '.car')
+        this.eventEmitter.off(Events.RimProtectorPickup + '.car')
+        this.eventEmitter.off(Events.GameOver + '.car')
     }
 
     update() {
@@ -216,7 +212,6 @@ export default class Car {
             }
             if (this.speed > this.maxSpeed) {
                 this.speed = this.maxSpeed
-                console.log('max speed reached after seconds : ', this.elapsedTime);
             }
         }
 

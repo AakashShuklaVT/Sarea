@@ -11,6 +11,7 @@ import EventEmitter from './Utils/EventEmitter.js'
 import AudioManager from './World/Managers/AudioManager.js'
 import UIManager from './UI/UIManager.js'
 import InputHandler from './Systems/InputHandler.js'
+import Events from '../../static/Configs/Events.js'
 
 let instance = null
 
@@ -43,12 +44,12 @@ export default class Experience {
         this.world = new World()
         this.isPaused = false
         // Resize event
-        this.sizes.on('resize', () => {
+        this.sizes.on(Events.Resize, () => {
             this.resize()
         })
 
         // Time tick event
-        this.time.on('tick', () => {
+        this.time.on(Events.Tick, () => {
             this.update()
         })
     }
@@ -67,8 +68,8 @@ export default class Experience {
     }
 
     destroy() {
-        this.sizes.off('resize')
-        this.time.off('tick')
+        this.sizes.off(Events.Resize)
+        this.time.off(Events.Tick)
 
         // Traverse the whole scene
         this.scene.traverse((child) => {

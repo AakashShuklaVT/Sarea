@@ -1,4 +1,5 @@
 import EventEmitter from './EventEmitter.js'
+import Events from '../../../static/Configs/Events.js'
 
 export default class Time extends EventEmitter
 {
@@ -25,7 +26,7 @@ export default class Time extends EventEmitter
         this.current = currentTime
         this.elapsed = this.current - this.start
 
-        this.trigger('tick')
+        this.trigger(Events.Tick)
 
         window.requestAnimationFrame(() =>
         {

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class Coin {
     static coinsCount = 0
@@ -38,7 +39,7 @@ export default class Coin {
 
     onCollision() {
         Coin.coinsCount++
-        this.eventEmitter.trigger('coinCollected')
+        this.eventEmitter.trigger(Events.CoinCollected)
         this.playAudio()
         this.model.visible = false
         this.active = false

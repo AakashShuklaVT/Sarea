@@ -65,7 +65,7 @@ export default class AudioManager {
 
         audio.setBuffer(buffer)
         audio.setLoop(loop)
-        audio.setVolume(0)
+        audio.setVolume(volume)
         audio.gain.disconnect() // disconnect default destination
         audio.gain.connect(this.masterGain) // route through master gain
 

@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import Bubble from '../../Utils/Bubble.js'
 import GameConfig from '../../../../static/Configs/GameConfig.js'
+import Events from '../../../../static/Configs/Events.js'
 
 export default class WheelCap {
     constructor(position) {
@@ -20,7 +21,6 @@ export default class WheelCap {
         this.createBubble()
         this.boundingSphere = new THREE.Sphere(this.bubble.position.clone(), 0.35)
         this.chargeDecreaseRate = GameConfig.wheelcapConfig.chargeDepletionValue
-        console.log('wheelcap');
     }
 
     setModel() {
@@ -43,7 +43,7 @@ export default class WheelCap {
     }
 
     onCollision() {
-        this.experience.eventEmitter.trigger('chargeSavePickup', [this.chargeDecreaseRate, this.type])
+        this.experience.eventEmitter.trigger(Events.ChargeSavePickup, [this.chargeDecreaseRate, this.type])
         this.playAudio()
         this.model.visible = false
         this.bubble.visible = false

@@ -1,5 +1,6 @@
 import Experience from "../Experience"
 import GameConfig from "../../../static/Configs/GameConfig"
+import Events from "../../../static/Configs/Events.js"
 
 export default class ChargingBar {
     constructor() {
@@ -36,18 +37,18 @@ export default class ChargingBar {
     }
 
     registerEvents() {
-        this.eventEmitter.on('gameStart', () => {
+        this.eventEmitter.on(Events.GameStart, () => {
             this.hudUI.style.display = 'none'
             this.show()
         })
-        this.eventEmitter.on('goHome', () => {
+        this.eventEmitter.on(Events.GoHome, () => {
             this.hide()
         })
-        this.eventEmitter.on('gameOver', () => {
+        this.eventEmitter.on(Events.GameOver, () => {
             this.hide()
         })
 
-        this.eventEmitter.on("chargeSavePickup", (chargeDecreaseRate, type) => {
+        this.eventEmitter.on(Events.ChargeSavePickup, (chargeDecreaseRate, type) => {
             this.hudUI.style.display = "flex";
 
             const oldRate = this.originalChargeDecreaseRate;
@@ -59,14 +60,13 @@ export default class ChargingBar {
         });
 
 
-        this.eventEmitter.on("rimProtectorPickup", () => {
+        this.eventEmitter.on(Events.RimProtectorPickup, () => {
             this.hudUI.style.display = "flex";
-
             this.hudLeft.textContent = "Equipped - Rim Protector";
-            this.hudRight.textContent = "-    Efficiency - 50 Damage";
+            this.hudRight.textContent = "- 50 Damage Reduction";
         });
 
-        this.eventEmitter.on('rareItemTimerEnd', () => {
+        this.eventEmitter.on(Events.RareItemTimerEnd, () => {
             this.hudUI.style.display = 'none'
         })
     }

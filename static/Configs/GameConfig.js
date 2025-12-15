@@ -36,12 +36,12 @@ export default {
         currentMaxCharge: 100,
         maxCharge: 100,
         minBatteryHealth: 60,
-        chargeDecreaseRate: 4,
+        chargeDecreaseRate: 3,
     },
 
     spawnValues: {
         startOffset: 50,
-        minSpacing: 9,
+        minSpacing: 10,
         maxSpacing: 12,
         segmentLength: 100,
         visibleDistance: 100,
